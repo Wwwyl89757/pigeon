@@ -37,6 +37,7 @@ public class DiscussionActivity extends AppCompatActivity {
             public void onError(RongIMClient.ErrorCode errorCode) {
                 Log.i("error：",errorCode.getMessage());
             }
+
         });
     }
 
