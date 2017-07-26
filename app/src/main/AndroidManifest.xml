@@ -15,7 +15,10 @@
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+
      
+
+
     <!-- TODO 4、配置IM SDK需要的权限 -->
     <!-- 监听网络的变化 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -44,7 +47,7 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SearchActivity"
-            android:label=""></activity>
+            android:label="" />
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -104,7 +107,8 @@
             android:name="Bmob_APP_KEY"
             android:value="7714967b6d8406fb9fe456b2fffff1e3" />
 
-        <activity android:name=".ValidateActivity"></activity>
+        <activity android:name=".ValidateActivity" />
+        <activity android:name=".DiscussionActivity"></activity>
     </application>
 
 </manifest>

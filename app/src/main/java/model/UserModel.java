@@ -316,8 +316,7 @@ public class UserModel extends BaseModel {
      * 查询好友
      * @param data
      */
-    public ArrayList<User> queryFriends(User user,final ArrayList<HashMap<String, Object>> data, final SimpleAdapter adapter){
-       final ArrayList<User> users = new ArrayList<>();
+    public void queryFriends(User user,final ArrayList<HashMap<String, Object>> data, final SimpleAdapter adapter){
         BmobQuery<Friend> query = new BmobQuery<>();
 //        final User user = (User) User.getCurrentUser();
 //        Toast.makeText(context,user.getUsername(),Toast.LENGTH_SHORT).show();
@@ -329,11 +328,14 @@ public class UserModel extends BaseModel {
             @Override
             public void done(List<Friend> list, BmobException e) {
                 if(e == null){
+                    MyApp.INSTANCE().friendIdList = new ArrayList<>();
                     for (Friend friend : list){
                         HashMap map = new HashMap();
                         map.put("imgId", R.drawable.chat_avatar);
                         map.put("friendname",friend.getFriendUser().getUsername());
-                        users.add(friend.getFriendUser());
+
+                        MyApp.INSTANCE().friendIdList.add(friend.getFriendUser().getObjectId());
+
                         data.add(map);
                     }
                     adapter.notifyDataSetChanged();
@@ -342,7 +344,6 @@ public class UserModel extends BaseModel {
                 }
             }
         });
-        return users;
     }
 
     /**

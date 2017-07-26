@@ -4,6 +4,8 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
+import java.util.ArrayList;
+
 import bean.User;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.Bmob;
@@ -33,9 +35,13 @@ public class MyApp extends Application {
     private String token;
     private User currentuser;
 
+    public ArrayList<String> friendIdList;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
+
         Bmob.initialize(this,"7714967b6d8406fb9fe456b2fffff1e3");
         setInstance(this);
         RongIM.init(this);

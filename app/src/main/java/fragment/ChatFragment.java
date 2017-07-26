@@ -15,6 +15,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.pigeon.DiscussionActivity;
 import com.example.administrator.pigeon.R;
 import com.example.administrator.pigeon.SearchActivity;
 
@@ -82,7 +83,12 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private void getAllFriend() {
         UserModel userModel = UserModel.getInstance(getActivity());
-        user_list = userModel.queryFriends(MyApp.INSTANCE().getCurrentuser(),data,adapter);
+
+       userModel.queryFriends(MyApp.INSTANCE().getCurrentuser(),data,adapter);
+//        Toast.makeText(getActivity(),user_list.size()+"userlist",Toast.LENGTH_SHORT).show();
+//        for (int i = 0; i < user_list.size(); i++){
+//            MyApp.INSTANCE().friendIdList.add(user_list.get(i).getObjectId());
+//        }
     }
 
     @Override
@@ -90,7 +96,7 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
         if (position == 0){
             startActivity(new Intent(getActivity(),SearchActivity.class));
         }else if(position == 1){
-
+            startActivity(new Intent(getActivity(),DiscussionActivity.class));
         }else {
             Toast.makeText(getActivity(),RongIM.getInstance().toString(),Toast.LENGTH_SHORT).show();
             RongIM.getInstance().startPrivateChat(getActivity(),user_list.get(position - 2).getObjectId() , "标题");
