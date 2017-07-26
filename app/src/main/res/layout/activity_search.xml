@@ -3,51 +3,45 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+
+
     <LinearLayout
+        android:layout_margin="8dp"
+        android:id="@+id/layout_add"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="#252525">
+        android:visibility="gone">
         <ImageView
-            android:layout_margin="10dp"
-            android:src="@drawable/arrows1"
-            android:id="@+id/back_imageview2"
+            android:src="@drawable/chat_avatar"
+            android:id="@+id/img_search"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:id="@+id/text_search"
+            android:padding="10dp"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="6"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher"/>
-                <EditText
-                    android:id="@+id/search_edittext"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_launcher"/>
-            </LinearLayout>
-            <TextView
-                android:layout_marginBottom="6dp"
-                android:background="#00ff04"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-        </LinearLayout>
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_gravity="center"/>
+        <Button
+            android:id="@+id/button_add"
+            android:text="添加为好友"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
+    <TextView
+        android:padding="20dp"
+        android:id="@+id/search_none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:visibility="gone"/>
     <LinearLayout
         android:visibility="gone"
         android:id="@+id/dialog_layout"
@@ -57,13 +51,12 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="60dp">
             <ImageView
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_launcher"/>
+                android:src="@drawable/search"/>
             <TextView
                 android:id="@+id/show_textview"
                 android:background="@null"
@@ -77,14 +70,6 @@
             android:background="#1aff00"
             android:layout_width="match_parent"
             android:layout_height="1dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="20"
-        android:orientation="vertical">
-
     </LinearLayout>
 
 </LinearLayout>

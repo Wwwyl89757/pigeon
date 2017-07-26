@@ -119,7 +119,7 @@ public class NewFriendManager {
      * @return
      */
     private NewFriend getNewFriend(String uid,Long time){
-        NewFriendDao dao =  openReadableDb().getNewFriendDao();
+        NewFriendDao dao = openReadableDb().getNewFriendDao();
         return dao.queryBuilder().where(NewFriendDao.Properties.Uid.eq(uid))
                 .where(NewFriendDao.Properties.Time.eq(time)).build().unique();
     }
@@ -129,7 +129,7 @@ public class NewFriendManager {
      * @return
      */
     public boolean hasNewFriendInvitation(){
-        List<NewFriend> infos =getNoVerifyNewFriend();
+        List<NewFriend> infos = getNoVerifyNewFriend();
         if(infos!=null && infos.size()>0){
             return true;
         }else{

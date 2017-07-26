@@ -13,6 +13,7 @@ import com.example.administrator.pigeon.LoginActivity;
 import com.example.administrator.pigeon.MainActivity;
 import com.example.administrator.pigeon.R;
 import com.example.administrator.pigeon.RegisterActivity;
+import com.example.administrator.pigeon.SearchActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,12 +21,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
+import bean.AddFriendMessage;
+import bean.AgreeAddFriendMessage;
 import bean.Friend;
+import bean.NewFriend;
 import bean.User;
 import cn.bmob.newim.BmobIM;
+import cn.bmob.newim.bean.BmobIMConversation;
+import cn.bmob.newim.bean.BmobIMMessage;
+import cn.bmob.newim.bean.BmobIMUserInfo;
+import cn.bmob.newim.core.BmobIMClient;
 import cn.bmob.newim.listener.ConnectListener;
+import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
@@ -35,8 +45,10 @@ import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
+import config.Config;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import manager.NewFriendManager;
 import myapp.MyApp;
 
 
@@ -79,11 +91,7 @@ public class UserModel extends BaseModel {
                     if(e == null){
                         if(list.size() != 0){
 //                        Toast.makeText(LoginActivity.this,"登陆成功",Toast.LENGTH_SHORT).show();
-                            SharedPreferences preferences=context.getSharedPreferences("user",Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor=preferences.edit();
-                            editor.putString("username", username);
-                            editor.putString("userId", list.get(0).getObjectId());
-                            editor.commit();
+
                             getToken(username,list.get(0).getObjectId());
                         }else {
                             Toast.makeText(context,"登陆失败",Toast.LENGTH_SHORT).show();
@@ -120,7 +128,10 @@ public class UserModel extends BaseModel {
                     //对返回值进行Json解析
                     String token = doJson(result);
                     //通过token进行连接
-                    connect(token,username,objectId);
+                    User user = new User();
+                    user.setObjectId(objectId);
+                    user.setUsername(username);
+                    connect(token,user);
                 } else {
                     Log.i(" error:" , e.getMessage());
                 }
@@ -128,9 +139,9 @@ public class UserModel extends BaseModel {
         });
     }
 
-    private void connect(String token, final String username,String objectId) {
+    private void connect(String token, final User user) {
 
-        BmobIM.connect(objectId, new ConnectListener() {
+        BmobIM.connect(user.getObjectId(), new ConnectListener() {
             @Override
             public void done(String uid, BmobException e) {
                 if (e == null) {
@@ -162,9 +173,16 @@ public class UserModel extends BaseModel {
                 public void onSuccess(String userid) {
                     Log.d("LoginActivity", "--onSuccess" + userid);
 
+                    SharedPreferences preferences=context.getSharedPreferences("user",Context.MODE_PRIVATE);
+                    if(preferences.getString("token","").equals("") ){
+                        MyApp.INSTANCE().setCurrentuser(user);
+                        SharedPreferences.Editor editor=preferences.edit();
+                        editor.putString("token", MyApp.INSTANCE().getToken());
+                        editor.putString("username",MyApp.INSTANCE().getCurrentuser().getUsername());
+                        editor.putString("userId",MyApp.INSTANCE().getCurrentuser().getObjectId());
+                        editor.commit();
+                    }
                     Intent intent = new Intent(getContext(),MainActivity.class);
-                    intent.putExtra("userId",userid);
-                    intent.putExtra("username",username);
                     context.startActivity(intent);
                 }
 
@@ -189,6 +207,7 @@ public class UserModel extends BaseModel {
         try {
             JSONObject resultObj = new JSONObject(result);
             token = resultObj.getString("token");
+            MyApp.INSTANCE().setToken(token);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -276,12 +295,21 @@ public class UserModel extends BaseModel {
     /**
      * 同意添加好友：1、发送同意添加的请求，2、添加对方到自己的好友列表中
      */
-    public void agreeAddFriend(User friend,SaveListener listener){
+    public void agreeAddFriend(User friend){
         Friend f = new Friend();
-        User user = (User) User.getCurrentUser();
-        f.setUser(user);
+        f.setUser(MyApp.INSTANCE().getCurrentuser());
         f.setFriendUser(friend);
-        f.save(listener);
+        f.save(new SaveListener() {
+            @Override
+            public void done(Object o, BmobException e) {
+                if (e == null) {
+                    Toast.makeText(context, "添加好友成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "添加好友失败", Toast.LENGTH_SHORT).show();
+                    Log.i("error:", e.getErrorCode() + e.getMessage());
+                }
+            }
+        });
     }
 
     /**
@@ -300,16 +328,13 @@ public class UserModel extends BaseModel {
         query.findObjects(new FindListener<Friend>(){
             @Override
             public void done(List<Friend> list, BmobException e) {
-                Log.i("query","------------------");
                 if(e == null){
                     for (Friend friend : list){
-                        Log.i("query","+++++++++++");
                         HashMap map = new HashMap();
                         map.put("imgId", R.drawable.chat_avatar);
                         map.put("friendname",friend.getFriendUser().getUsername());
                         users.add(friend.getFriendUser());
                         data.add(map);
-                        Log.i("data.size:",data.size()+"");
                     }
                     adapter.notifyDataSetChanged();
                 }else{
@@ -322,11 +347,82 @@ public class UserModel extends BaseModel {
 
     /**
      * 删除好友
-     * @param f
-     * @param listener
      */
 //    public void deleteFriend(Friend f,DeleteListener listener){
 //        Friend friend =new Friend();
 //        friend.delete(getContext(),f.getObjectId(),listener);
 //    }
+
+    //发送好友请求
+    public void sendFriendRequest(BmobIMUserInfo info){
+        BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info, true,null);
+        //这个obtain方法才是真正创建一个管理消息发送的会话
+        BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), c);
+        //新建一个添加好友的自定义消息实体
+        AddFriendMessage msg =new AddFriendMessage();
+        msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
+        Map<String,Object> map =new HashMap<>();
+        map.put("username", MyApp.INSTANCE().getCurrentuser().getUsername());//发送者姓名，这里只是举个例子，其实可以不需要传发送者的信息过去
+//        map.put("avatar",currentUser.getAvatar());//发送者的头像
+        map.put("userId",MyApp.INSTANCE().getCurrentuser().getObjectId());//发送者的uid
+        msg.setExtraMap(map);
+        conversation.sendMessage(msg, new MessageSendListener() {
+            @Override
+            public void done(BmobIMMessage msg, BmobException e) {
+                if (e == null) {//发送成功
+                    Toast.makeText(context,"好友请求发送成功，等待验证",Toast.LENGTH_SHORT).show();
+                } else {//发送失败
+                    Toast.makeText(context,"发送失败:" + e.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+    /**
+     * 发送同意添加好友的请求
+     */
+    public void sendAgreeAddFriendMessage(final NewFriend add, final SaveListener listener){
+        //发给谁，就填谁的用户信息
+        BmobIMUserInfo info = new BmobIMUserInfo(add.getUid(), add.getName(), add.getAvatar());
+        //启动一个暂态会话，也就是isTransient为true,表明该会话仅执行发送消息的操作，不会保存会话和消息到本地数据库中，
+        BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info,true,null);
+        //这个obtain方法才是真正创建一个管理消息发送的会话
+        BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(),c);
+        //而AgreeAddFriendMessage的isTransient设置为false，表明我希望在对方的会话数据库中保存该类型的消息
+        AgreeAddFriendMessage msg =new AgreeAddFriendMessage();
+        SharedPreferences preferences = context.getSharedPreferences("user",Context.MODE_PRIVATE);
+//        msg.setContent("我通过了你的好友验证请求，我们可以开始聊天了!");//---这句话是直接存储到对方的消息表中的
+        Map<String,Object> map =new HashMap<>();
+        map.put("msg",preferences.getString("username","")+"同意添加你为好友");//显示在通知栏上面的内容
+        map.put("uid",add.getUid());//发送者的uid-方便请求添加的发送方找到该条添加好友的请求
+        map.put("time", add.getTime());//添加好友的请求时间
+        msg.setExtraMap(map);
+        conversation.sendMessage(msg, new MessageSendListener() {
+            @Override
+            public void done(BmobIMMessage msg, BmobException e){
+                if (e == null) {//发送成功
+                    //修改本地的好友请求记录
+                    NewFriend newFriend =  new NewFriend();
+                    newFriend.setUid(add.getUid());
+                    newFriend.setTime(add.getTime());
+                    NewFriendManager.getInstance(context).updateNewFriend(newFriend, Config.STATUS_VERIFIED);
+                    Toast.makeText(context,"添加好友成功",Toast.LENGTH_SHORT).show();
+                } else {//发送失败
+                    Log.d("error:",e.getErrorCode()+e.getMessage());
+                    Toast.makeText(context,"添加好友失败",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    /**
+     * 添加对方为自己的好友
+     * @param uid
+     */
+    public void addFriend(String uid){
+        User user =new User();
+        user.setObjectId(uid);
+        agreeAddFriend(user);
+    }
 }

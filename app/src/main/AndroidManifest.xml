@@ -14,16 +14,19 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-           <!--TODO 4、配置IM SDK需要的权限-->
+
+     
+    <!-- TODO 4、配置IM SDK需要的权限 -->
     <!-- 监听网络的变化 -->
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />>
-    <!-- sd卡存储-->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    >
+    <!-- sd卡存储 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!--摄像头-->
+    <!-- 摄像头 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!--录音-->
+    <!-- 录音 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <!--通知震动-->
+    <!-- 通知震动 -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -35,11 +38,13 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:label=""></activity>
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
@@ -49,8 +54,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.example.administrator.pigeon.ConversationActivity"
+        <activity
+            android:name=".ConversationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -75,8 +80,8 @@
                 android:resource="@xml/rc_file_path" />
         </provider>
 
-        <!--TODO 5、配置IM SDK需要的广播和服务-->
-        <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver" >
+        <!-- TODO 5、配置IM SDK需要的广播和服务 -->
+        <receiver android:name="cn.bmob.newim.core.ConnectChangeReceiver">
             <intent-filter>
                 <action android:name="cn.bmob.action.RECONNECT" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -84,6 +89,7 @@
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
         </receiver>
+
         <service
             android:name="cn.bmob.newim.core.service.BmobIMService"
             android:process=":bmobcore" />
@@ -93,10 +99,12 @@
         <service android:name="cn.bmob.newim.core.service.ReConnectService" />
         <service android:name="cn.bmob.newim.core.service.HeartBeatService" />
 
-        <!--TODO 3、配置Bmob平台的应用密钥-->
+        <!-- TODO 3、配置Bmob平台的应用密钥 -->
         <meta-data
             android:name="Bmob_APP_KEY"
             android:value="7714967b6d8406fb9fe456b2fffff1e3" />
+
+        <activity android:name=".ValidateActivity"></activity>
     </application>
 
 </manifest>

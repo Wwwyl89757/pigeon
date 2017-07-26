@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 
+import bean.User;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.Bmob;
 import io.rong.imkit.RongIM;
@@ -29,6 +30,9 @@ public class MyApp extends Application {
         MyApp.INSTANCE = a;
     }
 
+    private String token;
+    private User currentuser;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,6 +48,22 @@ public class MyApp extends Application {
             BmobIM.registerDefaultMessageHandler(new MyMessageHandler(this));
         }
 
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setCurrentuser(User currentuser) {
+        this.currentuser = currentuser;
+    }
+
+    public User getCurrentuser() {
+        return currentuser;
     }
 
     /**

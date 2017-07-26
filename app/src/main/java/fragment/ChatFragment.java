@@ -40,6 +40,7 @@ import io.rong.imlib.NativeObject;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Conversation;
 import model.UserModel;
+import myapp.MyApp;
 
 /**
  * Created by Administrator on 2017/7/21.
@@ -51,9 +52,7 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
     SimpleAdapter adapter;
     ArrayList<User> user_list;
     ArrayList<HashMap<String, Object>> data;
-    Intent intent;
-    String userId;
-    String username;
+
 //    ArrayList<User> user_all;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,9 +65,6 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
     private void init(View view) {
         listView = (ListView) view.findViewById(R.id.chat_listview);
         user_list = new ArrayList<>();
-        intent = this.getActivity().getIntent();
-        userId = intent.getStringExtra("userId");
-        username = intent.getStringExtra("username");
         data = new ArrayList<HashMap<String,Object>>();
         HashMap map1 = new HashMap();
         map1.put("imgId",R.drawable.new_friend);
@@ -85,11 +81,8 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     private void getAllFriend() {
-        final User user = new User();
-        user.setObjectId(userId);
-        user.setUsername(username);
         UserModel userModel = UserModel.getInstance(getActivity());
-        user_list = userModel.queryFriends(user,data,adapter);
+        user_list = userModel.queryFriends(MyApp.INSTANCE().getCurrentuser(),data,adapter);
     }
 
     @Override

@@ -51,6 +51,15 @@ public class LoginActivity extends AppCompatActivity {
         animation.setDuration(1000);
         layout.setAnimation(animation);
         animation.startNow();
+        SharedPreferences preferences = getSharedPreferences("user",Context.MODE_PRIVATE);
+        if(!preferences.getString("token","").equals("")){
+            MyApp.INSTANCE().setToken(preferences.getString("token",""));
+            User currentUser = new User();
+            currentUser.setUsername(preferences.getString("username",""));
+            currentUser.setObjectId(preferences.getString("userId",""));
+            MyApp.INSTANCE().setCurrentuser(currentUser);
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        }
     }
 
     @OnClick(R.id.button_login)
