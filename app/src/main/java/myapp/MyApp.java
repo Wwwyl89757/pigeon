@@ -35,8 +35,16 @@ public class MyApp extends Application {
     private String token;
     private User currentuser;
 
-    public ArrayList<String> friendIdList;
+    private ArrayList<User> friendList = new ArrayList<>();
 
+
+    public void setFriendList(ArrayList<User> friendList) {
+        this.friendList = friendList;
+    }
+
+    public ArrayList<User> getFriendList() {
+        return friendList;
+    }
 
     @Override
     public void onCreate() {

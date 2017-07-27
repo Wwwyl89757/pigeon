@@ -295,7 +295,7 @@ public class UserModel extends BaseModel {
     /**
      * 同意添加好友：1、发送同意添加的请求，2、添加对方到自己的好友列表中
      */
-    public void agreeAddFriend(User friend){
+    public void agreeAddFriend(final User friend){
         Friend f = new Friend();
         f.setUser(MyApp.INSTANCE().getCurrentuser());
         f.setFriendUser(friend);
@@ -303,6 +303,7 @@ public class UserModel extends BaseModel {
             @Override
             public void done(Object o, BmobException e) {
                 if (e == null) {
+                    MyApp.INSTANCE().getFriendList().add(friend);
                     Toast.makeText(context, "添加好友成功", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(context, "添加好友失败", Toast.LENGTH_SHORT).show();
@@ -328,14 +329,11 @@ public class UserModel extends BaseModel {
             @Override
             public void done(List<Friend> list, BmobException e) {
                 if(e == null){
-                    MyApp.INSTANCE().friendIdList = new ArrayList<>();
                     for (Friend friend : list){
                         HashMap map = new HashMap();
                         map.put("imgId", R.drawable.chat_avatar);
                         map.put("friendname",friend.getFriendUser().getUsername());
-
-                        MyApp.INSTANCE().friendIdList.add(friend.getFriendUser().getObjectId());
-
+                        MyApp.INSTANCE().getFriendList().add(friend.getFriendUser());
                         data.add(map);
                     }
                     adapter.notifyDataSetChanged();
@@ -422,8 +420,17 @@ public class UserModel extends BaseModel {
      * @param uid
      */
     public void addFriend(String uid){
-        User user =new User();
-        user.setObjectId(uid);
-        agreeAddFriend(user);
+        BmobQuery<User> query = new BmobQuery<>();
+        query.getObject(uid, new QueryListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                if (e == null){
+                    agreeAddFriend(user);
+                }else {
+                    Log.d("eror:",e.getErrorCode()+e.getMessage());
+                }
+            }
+        });
+
     }
 }

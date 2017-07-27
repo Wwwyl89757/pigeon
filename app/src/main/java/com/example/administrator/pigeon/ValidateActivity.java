@@ -13,9 +13,11 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import bean.NewFriend;
+import bean.User;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import model.UserModel;
+import myapp.MyApp;
 
 public class ValidateActivity extends AppCompatActivity {
 

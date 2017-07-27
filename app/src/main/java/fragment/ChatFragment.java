@@ -51,7 +51,6 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
 
     ListView listView;
     SimpleAdapter adapter;
-    ArrayList<User> user_list;
     ArrayList<HashMap<String, Object>> data;
 
 //    ArrayList<User> user_all;
@@ -65,7 +64,6 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
 
     private void init(View view) {
         listView = (ListView) view.findViewById(R.id.chat_listview);
-        user_list = new ArrayList<>();
         data = new ArrayList<HashMap<String,Object>>();
         HashMap map1 = new HashMap();
         map1.put("imgId",R.drawable.new_friend);
@@ -82,13 +80,21 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
     }
 
     private void getAllFriend() {
-        UserModel userModel = UserModel.getInstance(getActivity());
 
-       userModel.queryFriends(MyApp.INSTANCE().getCurrentuser(),data,adapter);
-//        Toast.makeText(getActivity(),user_list.size()+"userlist",Toast.LENGTH_SHORT).show();
-//        for (int i = 0; i < user_list.size(); i++){
-//            MyApp.INSTANCE().friendIdList.add(user_list.get(i).getObjectId());
-//        }
+        if(MyApp.INSTANCE().getFriendList().isEmpty()){
+            UserModel userModel = UserModel.getInstance(getActivity());
+            userModel.queryFriends(MyApp.INSTANCE().getCurrentuser(),data,adapter);
+        }else {
+            for (User user : MyApp.INSTANCE().getFriendList()){
+                HashMap map = new HashMap();
+                map.put("imgId", R.drawable.chat_avatar);
+                map.put("friendname",user.getUsername());
+                data.add(map);
+            }
+            adapter.notifyDataSetChanged();
+        }
+
+
     }
 
     @Override
@@ -99,7 +105,7 @@ public class ChatFragment extends Fragment implements AdapterView.OnItemClickLis
             startActivity(new Intent(getActivity(),DiscussionActivity.class));
         }else {
             Toast.makeText(getActivity(),RongIM.getInstance().toString(),Toast.LENGTH_SHORT).show();
-            RongIM.getInstance().startPrivateChat(getActivity(),user_list.get(position - 2).getObjectId() , "标题");
+            RongIM.getInstance().startPrivateChat(getActivity(),MyApp.INSTANCE().getFriendList().get(position-2).getObjectId(), "标题");
         }
 
     }

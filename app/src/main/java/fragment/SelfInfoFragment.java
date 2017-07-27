@@ -48,6 +48,7 @@ public class SelfInfoFragment extends Fragment implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(getActivity(), LoginActivity.class));
                         BmobIM.getInstance().disConnect();
+                        MyApp.INSTANCE().getFriendList().clear();
                         SharedPreferences preferences = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = preferences.edit();
                         editor.clear();
