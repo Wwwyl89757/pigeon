@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.administrator.pigeon"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -60,4 +60,7 @@ dependencies {
     compile project(':IMKit')
     compile project(':IMLib')
     compile project(':RedPacket')
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.okio:okio:1.7.0'
+    compile project(':library')
 }

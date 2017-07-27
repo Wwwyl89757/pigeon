@@ -28,12 +28,12 @@
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\w_activity_trade_history.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_item_select_change.xml",
-        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_item_select_change.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_activity_pay_type.xml",
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_activity_pay_type.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_item_select_change.xml",
+        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_item_select_change.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\w_activity_secure_setting.xml",
@@ -180,12 +180,12 @@
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_item_select_pay_type.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_item_rp_detail.xml",
-        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_item_rp_detail.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_dialog_paytype_balance_item.xml",
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_dialog_paytype_balance_item.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_item_rp_detail.xml",
+        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_item_rp_detail.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_fragment_red_packet_history.xml",
@@ -232,12 +232,12 @@
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_open_packet.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\w_activity_my_wallet.xml",
-        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\w_activity_my_wallet.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_limit_dialog.xml",
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\_limit_dialog.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\w_activity_my_wallet.xml",
+        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\layout\\w_activity_my_wallet.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\_header_receive_rp.xml",

@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg_gray">
-    <TextView
+    <Button
+        android:id="@+id/button_sendcircle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="朋友圈"/>
+        android:text="点击跳转到编辑朋友圈"/>
 
 </LinearLayout>

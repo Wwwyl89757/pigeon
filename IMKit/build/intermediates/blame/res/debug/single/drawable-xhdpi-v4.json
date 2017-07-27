@@ -1196,12 +1196,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_ic_volume_0.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\u1f611.png",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f611.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_pb_file_download_progress_progress.9.png",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_pb_file_download_progress_progress.9.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\u1f611.png",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f611.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_file_icon_ppt.png",

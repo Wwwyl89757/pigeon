@@ -93,6 +93,7 @@ public class MyMessageHandler extends BmobIMMessageHandler {
             UserModel.getInstance(context).addFriend(agree.getFromId());//添加消息的发送方为好友
             //这里应该也需要做下校验--来检测下是否已经同意过该好友请求，我这里省略了
             showAgreeNotify(info, agree);
+
         } else {
             Toast.makeText(context, "接收到的自定义消息：" + msg.getMsgType() + "," + msg.getContent() + "," + msg.getExtra(), Toast.LENGTH_SHORT).show();
         }

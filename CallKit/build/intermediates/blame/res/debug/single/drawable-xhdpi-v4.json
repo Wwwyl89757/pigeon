@@ -320,12 +320,12 @@
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_ext_location_marker.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_unread_remind_list_count.png",
-        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_unread_remind_list_count.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_real_time_location_exit.png",
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_real_time_location_exit.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\rc_unread_remind_list_count.png",
+        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_unread_remind_list_count.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\u1f30f.png",

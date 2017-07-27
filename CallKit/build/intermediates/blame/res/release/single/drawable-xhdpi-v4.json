@@ -1540,12 +1540,12 @@
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\src\\main\\res\\drawable-xhdpi\\rc_voip_float_video.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_location_normal.png",
-        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_ic_location_normal.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\u1f629.png",
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\u1f629.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_ic_location_normal.png",
+        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_ic_location_normal.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi-v4\\rc_file_icon_else.png",

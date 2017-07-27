@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_editcircle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.example.administrator.pigeon.EditCircleActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
+
+        <EditText
+            android:id="@+id/edit_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/white"
+            android:enabled="true"
+            android:gravity="top"
+            android:hint="请输入文字..."
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:minHeight="70dp"
+            android:minLines="3"
+            android:padding="4dp"
+            android:scrollbars="vertical"
+            android:textColor="@android:color/black"
+            android:textSize="14dp" />
+
+        <GridView
+            android:id="@+id/edit_gridView"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:cacheColorHint="#00000000"
+            android:columnWidth="100dp"
+            android:fadingEdge="none"
+            android:horizontalSpacing="3dp"
+            android:listSelector="#00000000"
+            android:numColumns="auto_fit"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:transcriptMode="alwaysScroll"
+            android:verticalSpacing="3dp" />
+    </LinearLayout>
+
+</LinearLayout>

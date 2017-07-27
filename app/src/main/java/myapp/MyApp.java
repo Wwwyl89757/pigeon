@@ -3,6 +3,9 @@ package myapp;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.graphics.Bitmap;
+
+import com.example.administrator.pigeon.R;
 
 import java.util.ArrayList;
 
@@ -38,17 +41,10 @@ public class MyApp extends Application {
     private ArrayList<User> friendList = new ArrayList<>();
 
 
-    public void setFriendList(ArrayList<User> friendList) {
-        this.friendList = friendList;
-    }
-
-    public ArrayList<User> getFriendList() {
-        return friendList;
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
+
 
         Bmob.initialize(this,"7714967b6d8406fb9fe456b2fffff1e3");
         setInstance(this);
@@ -80,6 +76,14 @@ public class MyApp extends Application {
         return currentuser;
     }
 
+    public void setFriendList(ArrayList<User> friendList) {
+        this.friendList = friendList;
+    }
+
+    public ArrayList<User> getFriendList() {
+        return friendList;
+    }
+
     /**
      * 获得当前进程的名字
      *
@@ -103,4 +107,8 @@ public class MyApp extends Application {
         }
         return null;
     }
+
+
+
+
 }

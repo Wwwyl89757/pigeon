@@ -324,12 +324,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_menu_text.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_delete.png",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_delete.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_file_icon_ppt.png",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_file_icon_ppt.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_delete.png",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_delete.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_image_error.png",
@@ -716,12 +716,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_picsel_empty_pic.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ext_indicator.png",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ext_indicator.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ic_voice_sent_play2.png",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ic_voice_sent_play2.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ext_indicator.png",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_ext_indicator.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f393.png",
@@ -1128,12 +1128,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f30f.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f60f.png",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f60f.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u2615.png",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u2615.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f60f.png",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f60f.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_notification_network_available.png",
@@ -1180,12 +1180,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\u1f3b2.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_close.png",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_close.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_read_receipt.png",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_read_receipt.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_close.png",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\rc_cs_close.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_unread_count_bg.png",

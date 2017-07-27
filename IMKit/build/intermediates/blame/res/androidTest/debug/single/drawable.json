@@ -76,12 +76,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable\\rc_ac_btn_file_download_open_button.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_menu_text_selector.xml",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable\\rc_menu_text_selector.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_corner_location_style.xml",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable\\rc_corner_location_style.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_menu_text_selector.xml",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\drawable\\rc_menu_text_selector.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_bg_sidebar.xml",

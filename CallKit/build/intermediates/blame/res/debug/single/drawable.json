@@ -192,12 +192,12 @@
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable\\rc_cs_list_divider_style.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_cs_group_dialog_ok_selector.xml",
-        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable\\rc_cs_group_dialog_ok_selector.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_sel_picsel_toolbar_back.xml",
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable\\rc_sel_picsel_toolbar_back.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_cs_group_dialog_ok_selector.xml",
+        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable\\rc_cs_group_dialog_ok_selector.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\debug\\drawable\\rc_bg_item.xml",

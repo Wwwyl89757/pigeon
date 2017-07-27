@@ -1188,12 +1188,12 @@
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_cs_button_bg_hover.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ext_plugin_location.png",
-        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_ext_plugin_location.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_cs_star.png",
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_cs_star.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ext_plugin_location.png",
+        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_ext_plugin_location.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_receive_voice_two.png",
@@ -1348,12 +1348,12 @@
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_ic_yes_hover.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f393.png",
-        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\u1f393.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_btn_send_normal.9.png",
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\rc_btn_send_normal.9.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\u1f393.png",
+        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable-xhdpi-v4\\u1f393.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\rc_ic_def_coversation_portrait.png",
