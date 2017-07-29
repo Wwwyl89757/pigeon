@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.administrator.pigeon.EditCircleActivity;
+import com.example.administrator.pigeon.FriendCircleActivity;
 import com.example.administrator.pigeon.R;
 
 /**
@@ -29,12 +30,12 @@ public class ZoneFragment extends Fragment implements View.OnClickListener {
     }
 
     private void init(View view) {
-        view.findViewById(R.id.button_sendcircle).setOnClickListener(this);
+        view.findViewById(R.id.layout_tocircle).setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
-        startActivity(new Intent(getActivity(), EditCircleActivity.class));
+        startActivity(new Intent(getActivity(), FriendCircleActivity.class));
     }
 }

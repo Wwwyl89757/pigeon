@@ -1,19 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_validate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="com.example.administrator.pigeon.ValidateActivity">
 
-    <Button
-        android:id="@+id/button_validate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="同意"/>
+    <TextView
+        android:background="#b4060eea"
+        android:textColor="@color/white"
+        android:text="新朋友"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
-</RelativeLayout>
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:id="@+id/requesticon_image"
+        android:src="@drawable/request_add"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:textColor="#1a1a1a"
+            android:textSize="25sp"
+            android:id="@+id/requestname_text"
+            android:text="信鸽"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="2.5sp"
+            android:textSize="20sp"
+            android:text=" 请求添加您为好友"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:textSize="20sp"
+            android:text="验证消息："
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:textSize="18sp"
+                android:id="@+id/requestverify_text"
+                android:text="你好，我们能成为朋友么你好你好，我们能成为朋友么你好你好，我们能成为朋友么你好你好，我们能成为朋友么你好"
+                android:maxLines="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_marginBottom="35dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:text="是否同意？"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/agree_image"
+            android:src="@drawable/agree_add"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_width="20dp"
+            android:layout_height="match_parent"/>
+        <ImageView
+            android:src="@drawable/disagree_add"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

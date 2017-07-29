@@ -13,4 +13,8 @@
     <color name="statusColor">#ff0000</color>
     <color name="font_tags">#8c93ff</color>
     <color name="bg_gray2">#bff7f6fa</color>
+    <color name="base_color_text_blue">#489cfa</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="chat_bg">#ECF1F5</color>
 </resources>

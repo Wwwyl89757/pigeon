@@ -1,17 +1,14 @@
 package fragment;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,93 +18,107 @@ import com.example.administrator.pigeon.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import bean.Friend;
-import bean.User;
-import cn.bmob.v3.BmobBatch;
-import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.datatype.BatchResult;
-import cn.bmob.v3.datatype.BmobPointer;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.QueryListListener;
-import cn.bmob.v3.listener.QueryListener;
+import bean.SortBean;
 import io.rong.imkit.RongIM;
-import io.rong.imlib.NativeObject;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Conversation;
 import model.UserModel;
 import myapp.MyApp;
+import util.PinyinComparator;
+import view.SideBar;
+import adapter.SideBarAdapter;
 
-/**
- * Created by Administrator on 2017/7/21.
- */
+public class ChatFragment extends Fragment{
 
-public class ChatFragment extends Fragment implements AdapterView.OnItemClickListener {
+    private List<SortBean> sourceDateList;
+    /**
+     * 根据拼音来排列ListView里面的数据类
+     */
+    private PinyinComparator pinyinComparator;
 
-    ListView listView;
-    SimpleAdapter adapter;
-    ArrayList<HashMap<String, Object>> data;
+    private SideBar sideBar;
+    private TextView dialog;
 
-//    ArrayList<User> user_all;
+    private SideBarAdapter adapter;
+
+    private ListView sortListView;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.frag_chat,container,false);
-        init(view);
+        sideBar = (SideBar) view.findViewById(R.id.letter_show);
+
+        dialog = (TextView) view.findViewById(R.id.dialog);
+        sortListView = (ListView) view.findViewById(R.id.friend_show);
+        sideBar.setTextView(dialog);
+        init();
         return view;
     }
 
-    private void init(View view) {
-        listView = (ListView) view.findViewById(R.id.chat_listview);
-        data = new ArrayList<HashMap<String,Object>>();
-        HashMap map1 = new HashMap();
-        map1.put("imgId",R.drawable.new_friend);
-        map1.put("friendname","新的朋友");
-        data.add(map1);
-        HashMap map2 = new HashMap();
-        map2.put("imgId",R.drawable.group_chat);
-        map2.put("friendname","群组");
-        data.add(map2);
-        adapter = new SimpleAdapter(this.getActivity(),data,R.layout.item_chat,new String[]{"imgId","friendname"},new int[]{R.id.chat_item_img,R.id.chat_item_tx});
+    private void init() {
+        sourceDateList = new ArrayList<>();
+        adapter = new SideBarAdapter(getActivity(), sourceDateList);
         getAllFriend();
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+        sideBar.setOnTouchingLetterChangedListener(new SideBar.OnTouchingLetterChangedListener() {
+            @Override
+            public void onTouchingLetterChanged(String s) {
+                int position = adapter.getPositionForSection(s.charAt(0));
+                //将第position个item显示在listView的最上面一项
+                if(position != -1){
+                    sortListView.setSelection(position);
+                }
+                if(s.equals("☆")){
+                    sortListView.setSelection(4);
+                }
+            }
+        });
+
+        sortListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0){
+                    startActivity(new Intent(getActivity(),SearchActivity.class));
+                }else if(position == 1){
+                    startActivity(new Intent(getActivity(),DiscussionActivity.class));
+                }else {
+                    Toast.makeText(getActivity(),RongIM.getInstance().toString(),Toast.LENGTH_SHORT).show();
+                    RongIM.getInstance().startPrivateChat(getActivity(),MyApp.INSTANCE().getFriendList().get(position-2).getObjectId(), "标题");
+                }
+            }
+        });
+
+
+        //添加尾部好友数
+        //View view = LayoutInflater.from(getActivity()).inflate(R.layout.number_friends, null);
+        //sortListView.addFooterView(view);
+
+        sortListView.setAdapter(adapter);
     }
+
+
 
     private void getAllFriend() {
 
         if(MyApp.INSTANCE().getFriendList().isEmpty()){
             UserModel userModel = UserModel.getInstance(getActivity());
-            userModel.queryFriends(MyApp.INSTANCE().getCurrentuser(),data,adapter);
+            userModel.queryFriends(MyApp.INSTANCE().getCurrentuser(),sourceDateList,adapter);
         }else {
-            for (User user : MyApp.INSTANCE().getFriendList()){
-                HashMap map = new HashMap();
-                map.put("imgId", R.drawable.chat_avatar);
-                map.put("friendname",user.getUsername());
-                data.add(map);
+            String[] names = new String[MyApp.INSTANCE().getFriendList().size()];
+            String[] avatars = new String[MyApp.INSTANCE().getFriendList().size()];
+            for (int i = 0;i < MyApp.INSTANCE().getFriendList().size();i ++){
+                names[i] = MyApp.INSTANCE().getFriendList().get(i).getUsername();
+                avatars[i] = MyApp.INSTANCE().getFriendList().get(i).getAvatar().getUrl();
             }
+            UserModel.getInstance(getActivity()).filledData(sourceDateList,names,avatars);
+            // 根据a-z进行排序源数据
+            Collections.sort(sourceDateList, pinyinComparator);
+            sourceDateList.add(0,new SortBean("新的朋友","↑"));
+            sourceDateList.add(1,new SortBean("群聊","↑"));
             adapter.notifyDataSetChanged();
         }
 
 
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position == 0){
-            startActivity(new Intent(getActivity(),SearchActivity.class));
-        }else if(position == 1){
-            startActivity(new Intent(getActivity(),DiscussionActivity.class));
-        }else {
-            Toast.makeText(getActivity(),RongIM.getInstance().toString(),Toast.LENGTH_SHORT).show();
-            RongIM.getInstance().startPrivateChat(getActivity(),MyApp.INSTANCE().getFriendList().get(position-2).getObjectId(), "标题");
-        }
-
-    }
 
 }

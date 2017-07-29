@@ -19,11 +19,13 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.List;
 
 import bean.User;
 import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.listener.FindListener;
@@ -58,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             currentUser.setUsername(preferences.getString("username",""));
             currentUser.setObjectId(preferences.getString("userId",""));
             MyApp.INSTANCE().setCurrentuser(currentUser);
+            MyApp.INSTANCE().setUserAvatarUrl(preferences.getString("avatarUrl",""));
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
         }
     }

@@ -11,13 +11,14 @@
         android:layout_height="0dp"/>
 
     <LinearLayout
-        android:id="@+id/personal"
+        android:id="@+id/layout_personal"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white">
 
         <ImageView
+            android:id="@+id/img_info_avatar"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:background="@color/statusColor"
@@ -44,23 +45,25 @@
 
     <LinearLayout
         android:id="@+id/health"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="horizontal">
+
         <ImageView
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/search"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_margin="10dp"/>
+            android:layout_margin="10dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/v13" />
+
         <TextView
-            android:layout_marginLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
-            android:textSize="16sp"
-            android:text="钱包"/>
+            android:text="钱包"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <TextView
@@ -77,7 +80,7 @@
         android:background="@color/white">
         <ImageView
             android:layout_marginLeft="20dp"
-            android:src="@drawable/search"
+            android:src="@drawable/v8"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"/>
@@ -106,7 +109,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_marginLeft="20dp"
-            android:src="@drawable/search"
+            android:src="@drawable/v11"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"/>
@@ -135,7 +138,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_marginLeft="20dp"
-            android:src="@drawable/search"
+            android:src="@drawable/v14"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"/>
@@ -145,7 +148,7 @@
             android:textSize="16sp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="卡包"/>
+            android:text="运动"/>
     </LinearLayout>
 
     <View
@@ -164,7 +167,7 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_marginLeft="20dp"
-            android:src="@drawable/search"
+            android:src="@drawable/v9"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="10dp"/>

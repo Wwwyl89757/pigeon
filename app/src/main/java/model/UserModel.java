@@ -4,30 +4,29 @@ package model;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.administrator.pigeon.LoginActivity;
 import com.example.administrator.pigeon.MainActivity;
 import com.example.administrator.pigeon.R;
-import com.example.administrator.pigeon.RegisterActivity;
-import com.example.administrator.pigeon.SearchActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import adapter.SideBarAdapter;
 import bean.AddFriendMessage;
 import bean.AgreeAddFriendMessage;
 import bean.Friend;
 import bean.NewFriend;
+import bean.SortBean;
 import bean.User;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMConversation;
@@ -38,18 +37,21 @@ import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.CloudCodeListener;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.QueryListener;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import config.Config;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import manager.NewFriendManager;
 import myapp.MyApp;
+import util.CharacterParser;
+import util.PinyinComparator;
 
 
 /**
@@ -92,7 +94,7 @@ public class UserModel extends BaseModel {
                         if(list.size() != 0){
 //                        Toast.makeText(LoginActivity.this,"登陆成功",Toast.LENGTH_SHORT).show();
 
-                            getToken(username,list.get(0).getObjectId());
+                            getToken(list.get(0));
                         }else {
                             Toast.makeText(context,"登陆失败",Toast.LENGTH_SHORT).show();
                         }
@@ -105,15 +107,15 @@ public class UserModel extends BaseModel {
         }
     }
 
-    private void getToken(final String username, final String objectId) {
+    private void getToken(final User user) {
         String result = "";
         AsyncCustomEndpoints ace = new AsyncCustomEndpoints();
         //第一个参数是上下文对象，第二个参数是云端逻辑的方法名称，第三个参数是上传到云端逻辑的参数列表（JSONObject cloudCodeParams），第四个参数是回调类
         //构建JSONObject来传递表单参数到Bmob云端逻辑
         JSONObject cloudCodeParams = new JSONObject();
         try {
-            cloudCodeParams.put("userId", objectId);
-            cloudCodeParams.put("name", username);
+            cloudCodeParams.put("userId", user.getObjectId());
+            cloudCodeParams.put("name", user.getUsername());
             cloudCodeParams.put("portraitUri", "http://g.hiphotos.baidu.com/zhidao/wh%3D450%2C600/sign=22d43f5f92eef01f4d4110c1d5ceb513/1b4c510fd9f9d72af6029626d22a2834349bbba3.jpg");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -128,9 +130,6 @@ public class UserModel extends BaseModel {
                     //对返回值进行Json解析
                     String token = doJson(result);
                     //通过token进行连接
-                    User user = new User();
-                    user.setObjectId(objectId);
-                    user.setUsername(username);
                     connect(token,user);
                 } else {
                     Log.i(" error:" , e.getMessage());
@@ -172,7 +171,6 @@ public class UserModel extends BaseModel {
                 @Override
                 public void onSuccess(String userid) {
                     Log.d("LoginActivity", "--onSuccess" + userid);
-
                     SharedPreferences preferences=context.getSharedPreferences("user",Context.MODE_PRIVATE);
                     if(preferences.getString("token","").equals("") ){
                         MyApp.INSTANCE().setCurrentuser(user);
@@ -180,6 +178,7 @@ public class UserModel extends BaseModel {
                         editor.putString("token", MyApp.INSTANCE().getToken());
                         editor.putString("username",MyApp.INSTANCE().getCurrentuser().getUsername());
                         editor.putString("userId",MyApp.INSTANCE().getCurrentuser().getObjectId());
+                        editor.putString("avatarUrl",user.getAvatar().getUrl());
                         editor.commit();
                     }
                     Intent intent = new Intent(getContext(),MainActivity.class);
@@ -231,11 +230,11 @@ public class UserModel extends BaseModel {
      * @param password
      * @param pwdagain
      */
-    public void register(String username,String password, String pwdagain) {
+    public void register(String username, String password, String pwdagain, BmobFile avatar) {
         if(username.length()>0 && password.length()>0 && pwdagain.length()>0 ){
             if(Pattern.matches("[0-9A-Za-z]{6,16}", password)){
                 if (password.equals(pwdagain)){
-                    checkInDatabase(username,password);
+                    checkInDatabase(username,password,avatar);
                 }else{
                     Toast.makeText(context, "密码不一致", Toast.LENGTH_SHORT).show();
                 }
@@ -247,7 +246,7 @@ public class UserModel extends BaseModel {
         }
     }
 
-    private void checkInDatabase(final String username, final String pass) {
+    private void checkInDatabase(final String username, final String pass,final BmobFile avatar) {
         //创建查询对象
         BmobQuery<User> query = new BmobQuery<>();
         //添加查询条件
@@ -260,7 +259,7 @@ public class UserModel extends BaseModel {
                     if(list.size() != 0){
                         Toast.makeText(context,"该账户已经被注册",Toast.LENGTH_SHORT).show();
                     }else {
-                        insertIntoDB(username,pass);
+                        insertIntoDB(username,pass,avatar);
                     }
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
@@ -270,25 +269,35 @@ public class UserModel extends BaseModel {
         });
     }
 
-    private void insertIntoDB(String username, String pass) {
+    private void insertIntoDB(String username, String pass,final BmobFile avatar) {
 
-        User user = new User();
+        final User user = new User();
         user.setUsername(username);
         user.setPassword(pass);
-        //保存数据
-        user.signUp(new SaveListener<User>(){
-
+        user.setAvatar(avatar);
+        avatar.uploadblock(new UploadFileListener() {
             @Override
-            public void done(User bmobUser, BmobException e) {
-                if(e == null){
-                    Toast.makeText(context,"注册成功",Toast.LENGTH_SHORT).show();
-                    context.startActivity(new Intent(context,LoginActivity.class));
-                }else {
+            public void done(BmobException e) {
+                if (e == null){
+                    //保存数据
+                    user.signUp(new SaveListener<User>(){
+
+                        @Override
+                        public void done(User bmobUser, BmobException e) {
+                            if(e == null){
+                                Toast.makeText(context,"注册成功",Toast.LENGTH_SHORT).show();
+                                context.startActivity(new Intent(context,LoginActivity.class));
+                            }else {
 //                    Toast.makeText(RegisterActivity.this,"插入数据库失败",Toast.LENGTH_SHORT).show();
-                    Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                                Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
+                            }
+                        }
+                    }) ;
+                }else {
+                    Log.i("error",e.getErrorCode()+e.getMessage());
                 }
             }
-        }) ;
+        });
 
     }
 
@@ -318,7 +327,8 @@ public class UserModel extends BaseModel {
      * 查询好友
      * @param data
      */
-    public void queryFriends(User user,final ArrayList<HashMap<String, Object>> data, final SimpleAdapter adapter){
+    public void queryFriends(User user, final List<SortBean> data, final SideBarAdapter adapter){
+        final PinyinComparator pinyinComparator = new PinyinComparator();
         BmobQuery<Friend> query = new BmobQuery<>();
 //        final User user = (User) User.getCurrentUser();
 //        Toast.makeText(context,user.getUsername(),Toast.LENGTH_SHORT).show();
@@ -330,19 +340,55 @@ public class UserModel extends BaseModel {
             @Override
             public void done(List<Friend> list, BmobException e) {
                 if(e == null){
-                    for (Friend friend : list){
-                        HashMap map = new HashMap();
-                        map.put("imgId", R.drawable.chat_avatar);
-                        map.put("friendname",friend.getFriendUser().getUsername());
-                        MyApp.INSTANCE().getFriendList().add(friend.getFriendUser());
-                        data.add(map);
+                    String[] names = new String[list.size()];
+                    String[] avatars = new String[list.size()];
+                    Log.i("list.size",list.size()+"");
+                    for (int i = 0;i < list.size();i ++){
+                        MyApp.INSTANCE().getFriendList().add(list.get(i).getFriendUser());
+                        names[i] = list.get(i).getFriendUser().getUsername();
+                        avatars[i] = list.get(i).getFriendUser().getAvatar().getUrl();
                     }
+                    filledData(data,names,avatars);
+                    // 根据a-z进行排序源数据
+                    Collections.sort(data, pinyinComparator);
+                    data.add(0,new SortBean("新的朋友","↑"));
+                    data.add(1,new SortBean("群聊","↑"));
                     adapter.notifyDataSetChanged();
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
+
             }
         });
+
+    }
+
+    /**
+     * 为ListView填充数据
+     * @return
+     */
+    public void filledData(List<SortBean> mSortList, String [] names, String[] avatars){
+        CharacterParser characterParser = CharacterParser.getInstance();
+        for(int i=0; i<names.length; i++){
+            SortBean sortBean = new SortBean();
+            sortBean.setName(names[i]);
+            sortBean.setFriendPortrait(avatars[i]);
+            //sortBean.setCount(0);
+            //汉字转换成拼音
+            String pinyin = characterParser.getSelling(names[i]);
+            String sortString = pinyin.substring(0, 1).toUpperCase();
+
+            // 正则表达式，判断首字母是否是英文字母
+            if(sortString.matches("[A-Z]")){
+                sortBean.setFirstLetter(sortString.toUpperCase());
+            }else{
+                sortBean.setFirstLetter("#");
+            }
+
+            mSortList.add(sortBean);
+            Log.e("error", sortBean.getFirstLetter());
+        }
+
     }
 
     /**
@@ -432,6 +478,37 @@ public class UserModel extends BaseModel {
                 }
             }
         });
+    }
+
+    /**
+     * 修改头像
+     */
+    public void setAvatar(final BmobFile avatar){
+
+        avatar.uploadblock(new UploadFileListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    User user = new User();
+                    user.setAvatar(avatar);
+                    //保存数据
+                    user.update(MyApp.INSTANCE().getCurrentuser().getObjectId(), new UpdateListener() {
+                        @Override
+                        public void done(BmobException e) {
+                            if (e == null) {
+                                Toast.makeText(context, "头像更新成功", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "头像更新失败", Toast.LENGTH_SHORT).show();
+                                Log.i("error", e.getErrorCode() + e.getMessage());
+                            }
+                        }
+                    });
+                } else {
+                    Log.i("error", e.getErrorCode() + e.getMessage());
+                }
+            }
+        });
+
 
     }
 }

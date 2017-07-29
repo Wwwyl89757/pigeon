@@ -17,15 +17,25 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.lidroid.xutils.view.annotation.event.OnCompoundButtonCheckedChange;
+import com.yongchun.library.view.ImageSelectorActivity;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import bean.PhotoItem;
 import bean.User;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
+import config.Config;
+import io.rong.imageloader.core.DisplayImageOptions;
+import io.rong.imageloader.core.ImageLoader;
+import io.rong.imageloader.core.display.FadeInBitmapDisplayer;
+import io.rong.imageloader.core.display.RoundedBitmapDisplayer;
 import model.UserModel;
 
 public class RegisterActivity extends AppCompatActivity implements TextWatcher {
@@ -46,6 +56,10 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     ImageView image_repass;
     @ViewInject(R.id.button_register)
     Button button_register;
+    @ViewInject(R.id.img_avatar)
+    ImageView img_avatar;
+
+    PhotoItem photoItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         edit_register_name.addTextChangedListener(this);
         edit_register_pass.addTextChangedListener(this);
         edit_repass.addTextChangedListener(this);
+        photoItem = new PhotoItem();
     }
 
     @Override
@@ -125,18 +140,28 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         String name = edit_register_name.getText().toString().replace(" ", "");
         String pass = edit_register_pass.getText().toString();
         String repass = edit_repass.getText().toString();
-
+        Log.i("photoItem",photoItem.getFilePath());
+        BmobFile avatar = new BmobFile(new File(photoItem.getFilePath()));
         UserModel userModel = UserModel.getInstance(RegisterActivity.this);
-        userModel.register(name,pass,repass);
+        userModel.register(name,pass,repass,avatar);
     }
 
     @OnClick(R.id.img_avatar)
     public void getAvatar(View view){
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");//相片类型
-        startActivityForResult(intent, 1);
+        ImageSelectorActivity.start(RegisterActivity.this, 1, ImageSelectorActivity.MODE_SINGLE, true,true,true);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == RESULT_OK && requestCode == ImageSelectorActivity.REQUEST_IMAGE){
+
+            ArrayList<String> pathList = (ArrayList<String>) data.getSerializableExtra(ImageSelectorActivity.REQUEST_OUTPUT);
+//            startActivity(new Intent(this,SelectResultActivity.class).putExtra(SelectResultActivity.EXTRA_IMAGES,images));
+            photoItem = new PhotoItem(pathList.get(0),false);
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.displayImage("file:///" + photoItem.getFilePath(), img_avatar, Config.options);
+        }
+    }
 
 
     public void onBackPressed() {

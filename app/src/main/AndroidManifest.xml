@@ -17,7 +17,6 @@
     <!-- 允许读取手机状态 用于创建BmobInstallation -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-
     <!-- TODO 4、配置IM SDK需要的权限 -->
     <!-- 监听网络的变化 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -31,7 +30,7 @@
     <!-- 通知震动 -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <!--保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
+    <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -75,6 +74,15 @@
                     android:scheme="rong" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ValidateActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".DiscussionActivity" />
+        <activity android:name=".EditCircleActivity" />
+        <activity android:name="com.yongchun.library.view.ImageSelectorActivity" />
+        <activity android:name="com.yongchun.library.view.ImagePreviewActivity" />
+        <activity android:name="com.yongchun.library.view.ImageCropActivity" />
+        <activity android:name=".FriendCircleActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -110,13 +118,7 @@
             android:name="Bmob_APP_KEY"
             android:value="7714967b6d8406fb9fe456b2fffff1e3" />
 
-        <activity android:name=".ValidateActivity" />
-        <activity android:name=".DiscussionActivity" />
-        <activity android:name=".EditCircleActivity"></activity>
-        <activity android:name="com.yongchun.library.view.ImageSelectorActivity"/>
-        <activity android:name="com.yongchun.library.view.ImagePreviewActivity"/>
-        <activity android:name="com.yongchun.library.view.ImageCropActivity"/>
-
+        <activity android:name=".SetInfoActivity"></activity>
     </application>
 
 </manifest>

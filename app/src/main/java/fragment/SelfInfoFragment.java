@@ -8,15 +8,28 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.administrator.pigeon.LoginActivity;
 import com.example.administrator.pigeon.R;
+import com.example.administrator.pigeon.RegisterActivity;
+import com.example.administrator.pigeon.SetInfoActivity;
+import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.yongchun.library.view.ImageSelectorActivity;
 
+import java.util.ArrayList;
+
+import bean.PhotoItem;
 import cn.bmob.newim.BmobIM;
+import config.Config;
+import io.rong.imageloader.core.ImageLoader;
 import myapp.MyApp;
 
 /**
@@ -26,13 +39,19 @@ import myapp.MyApp;
 public class SelfInfoFragment extends Fragment implements View.OnClickListener {
 
     TextView textView_logout;
+    LinearLayout layout_personal;
+    ImageView img_info_avatar;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_info,container,false);
         textView_logout = (TextView)view.findViewById(R.id.logout);
+        layout_personal = (LinearLayout)view.findViewById(R.id.layout_personal);
+        img_info_avatar = (ImageView)view.findViewById(R.id.img_info_avatar);
+        ImageLoader.getInstance().displayImage(MyApp.INSTANCE().getUserAvatarUrl(), img_info_avatar, Config.options);
         textView_logout.setOnClickListener(this);
+        layout_personal.setOnClickListener(this);
         return view;
     }
 
@@ -58,6 +77,10 @@ public class SelfInfoFragment extends Fragment implements View.OnClickListener {
                 builder.create();
                 builder.show();
                 break;
+            case R.id.layout_personal:
+                startActivity(new Intent(getActivity(),SetInfoActivity.class));
+                break;
         }
     }
+
 }

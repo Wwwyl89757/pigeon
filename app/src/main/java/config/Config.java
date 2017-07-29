@@ -1,5 +1,11 @@
 package config;
 
+import com.example.administrator.pigeon.R;
+
+import io.rong.imageloader.core.DisplayImageOptions;
+import io.rong.imageloader.core.display.FadeInBitmapDisplayer;
+import io.rong.imageloader.core.display.RoundedBitmapDisplayer;
+
 /**
  * Created by Administrator on 2017/7/25.
  */
@@ -18,5 +24,12 @@ public class Config {
     public static final int STATUS_VERIFY_REFUSE=3;
     //好友请求：我发出的好友请求-暂未存储到本地数据库中
     public static final int STATUS_VERIFY_ME_SEND=4;
+
+    public static final DisplayImageOptions options = new DisplayImageOptions.Builder()
+            .showStubImage(R.drawable.xiaolian)
+            .showImageForEmptyUri(R.drawable.xiaolian)
+            .showImageOnFail(R.drawable.xiaolian).cacheInMemory()
+            .cacheOnDisc().displayer(new RoundedBitmapDisplayer(20))
+            .displayer(new FadeInBitmapDisplayer(300)).build();
 
 }

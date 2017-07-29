@@ -63,4 +63,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okio:okio:1.7.0'
     compile project(':library')
+    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile 'com.komi.slider:slider:0.4.0'
+    compile files('libs/BmobStat_v1.1_170114.jar')
 }

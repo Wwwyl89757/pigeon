@@ -37,7 +37,7 @@ public class MyApp extends Application {
 
     private String token;
     private User currentuser;
-
+    private String userAvatarUrl;
     private ArrayList<User> friendList = new ArrayList<>();
 
 
@@ -82,6 +82,14 @@ public class MyApp extends Application {
 
     public ArrayList<User> getFriendList() {
         return friendList;
+    }
+
+    public void setUserAvatarUrl(String userAvatarUrl) {
+        this.userAvatarUrl = userAvatarUrl;
+    }
+
+    public String getUserAvatarUrl() {
+        return userAvatarUrl;
     }
 
     /**

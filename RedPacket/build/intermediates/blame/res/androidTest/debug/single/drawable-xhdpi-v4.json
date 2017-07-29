@@ -52,12 +52,12 @@
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\_303.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\_403.png",
-        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\_403.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\open_rp_top.png",
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\open_rp_top.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\_403.png",
+        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\_403.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\recharge.png",
@@ -252,12 +252,12 @@
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\trade_detail.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\_ic_check_off.png",
-        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\_ic_check_off.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_rp.png",
         "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\ic_rp.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\_ic_check_off.png",
+        "source": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\bundles\\debug\\res\\drawable-xhdpi-v4\\_ic_check_off.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\RedPacket\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\_btn_exit.png",

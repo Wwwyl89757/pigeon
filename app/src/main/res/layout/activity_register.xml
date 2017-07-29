@@ -150,20 +150,21 @@
             android:layout_marginTop="15dp"
             android:layout_weight="1"
             android:text="头像"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:id="@+id/textView" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:id="@+id/img_avatar">
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="right"
-                android:src="@drawable/avatar1" />
+                android:src="@drawable/avatar1"
+                android:id="@+id/img_avatar"/>
         </LinearLayout>
     </LinearLayout>
 

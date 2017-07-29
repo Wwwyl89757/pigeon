@@ -30,7 +30,7 @@ public class ValidateActivity extends AppCompatActivity {
         ViewUtils.inject(this);
     }
 
-    @OnClick(R.id.button_validate)
+    @OnClick(R.id.agree_image)
     public void onClickValidate(View view){
         Intent intent = this.getIntent();
         NewFriend friend = (NewFriend) intent.getSerializableExtra("newfriend");
