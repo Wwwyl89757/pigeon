@@ -168,12 +168,12 @@
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable\\rc_bg_item.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_cs_submit_comment.xml",
-        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable\\rc_cs_submit_comment.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_cs_ratingbar.xml",
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable\\rc_cs_ratingbar.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_cs_submit_comment.xml",
+        "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\drawable\\rc_cs_submit_comment.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rc_menu_text_selector.xml",

@@ -21,17 +21,22 @@
             android:id="@+id/img_info_avatar"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@color/statusColor"
+            android:src="@drawable/xiaolian"
             android:layout_marginLeft="15dp"
             android:layout_width="80dp"
             android:layout_height="80dp"
             />
         <TextView
+            android:id="@+id/text_info_name"
+            android:padding="8dp"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
             android:layout_weight="3"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             />
         <ImageView
+            android:id="@+id/img_info_qrcode"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent"

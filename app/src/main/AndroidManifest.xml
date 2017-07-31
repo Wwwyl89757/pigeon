@@ -83,6 +83,15 @@
         <activity android:name="com.yongchun.library.view.ImagePreviewActivity" />
         <activity android:name="com.yongchun.library.view.ImageCropActivity" />
         <activity android:name=".FriendCircleActivity" />
+        <!--扫一扫功能界面-->
+        <activity
+            android:name="com.xys.libzxing.zxing.activity.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -118,7 +127,8 @@
             android:name="Bmob_APP_KEY"
             android:value="7714967b6d8406fb9fe456b2fffff1e3" />
 
-        <activity android:name=".SetInfoActivity"></activity>
+        <activity android:name=".SetInfoActivity" />
+        <activity android:name=".DetailsActivity"></activity>
     </application>
 
 </manifest>

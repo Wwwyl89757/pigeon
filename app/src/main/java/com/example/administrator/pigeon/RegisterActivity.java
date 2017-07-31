@@ -69,7 +69,6 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         edit_register_name.addTextChangedListener(this);
         edit_register_pass.addTextChangedListener(this);
         edit_repass.addTextChangedListener(this);
-        photoItem = new PhotoItem();
     }
 
     @Override
@@ -140,10 +139,14 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         String name = edit_register_name.getText().toString().replace(" ", "");
         String pass = edit_register_pass.getText().toString();
         String repass = edit_repass.getText().toString();
-        Log.i("photoItem",photoItem.getFilePath());
-        BmobFile avatar = new BmobFile(new File(photoItem.getFilePath()));
-        UserModel userModel = UserModel.getInstance(RegisterActivity.this);
-        userModel.register(name,pass,repass,avatar);
+        if (photoItem == null){
+            Toast.makeText(RegisterActivity.this,"请上传头像",Toast.LENGTH_SHORT).show();
+        }else {
+            Log.i("photoItem",photoItem.getFilePath());
+            BmobFile avatar = new BmobFile(new File(photoItem.getFilePath()));
+            UserModel userModel = UserModel.getInstance(RegisterActivity.this);
+            userModel.register(name,pass,repass,avatar);
+        }
     }
 
     @OnClick(R.id.img_avatar)

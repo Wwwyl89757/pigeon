@@ -174,6 +174,7 @@ public class UserModel extends BaseModel {
                     SharedPreferences preferences=context.getSharedPreferences("user",Context.MODE_PRIVATE);
                     if(preferences.getString("token","").equals("") ){
                         MyApp.INSTANCE().setCurrentuser(user);
+                        MyApp.INSTANCE().setUserAvatarUrl(user.getAvatar().getUrl());
                         SharedPreferences.Editor editor=preferences.edit();
                         editor.putString("token", MyApp.INSTANCE().getToken());
                         editor.putString("username",MyApp.INSTANCE().getCurrentuser().getUsername());
@@ -232,15 +233,17 @@ public class UserModel extends BaseModel {
      */
     public void register(String username, String password, String pwdagain, BmobFile avatar) {
         if(username.length()>0 && password.length()>0 && pwdagain.length()>0 ){
-            if(Pattern.matches("[0-9A-Za-z]{6,16}", password)){
-                if (password.equals(pwdagain)){
-                    checkInDatabase(username,password,avatar);
-                }else{
+
+            if (Pattern.matches("[0-9A-Za-z]{6,16}", password)) {
+                if (password.equals(pwdagain)) {
+                    checkInDatabase(username, password, avatar);
+                } else {
                     Toast.makeText(context, "密码不一致", Toast.LENGTH_SHORT).show();
                 }
-            }else{
+            } else {
                 Toast.makeText(context, "密码不符合格式要求", Toast.LENGTH_SHORT).show();
             }
+
         }else{
             Toast.makeText(context, "注册信息请填写完整", Toast.LENGTH_SHORT).show();
         }
@@ -345,14 +348,14 @@ public class UserModel extends BaseModel {
                     Log.i("list.size",list.size()+"");
                     for (int i = 0;i < list.size();i ++){
                         MyApp.INSTANCE().getFriendList().add(list.get(i).getFriendUser());
-                        names[i] = list.get(i).getFriendUser().getUsername();
-                        avatars[i] = list.get(i).getFriendUser().getAvatar().getUrl();
                     }
-                    filledData(data,names,avatars);
+                    filledData(data,MyApp.INSTANCE().getFriendList());
                     // 根据a-z进行排序源数据
                     Collections.sort(data, pinyinComparator);
-                    data.add(0,new SortBean("新的朋友","↑"));
-                    data.add(1,new SortBean("群聊","↑"));
+                    User user1 = new User();user1.setUsername("新的朋友");
+                    data.add(0,new SortBean(user1,"↑"));
+                    User user2 = new User();user2.setUsername("群聊");
+                    data.add(1,new SortBean(user2,"↑"));
                     adapter.notifyDataSetChanged();
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
@@ -367,15 +370,14 @@ public class UserModel extends BaseModel {
      * 为ListView填充数据
      * @return
      */
-    public void filledData(List<SortBean> mSortList, String [] names, String[] avatars){
+    public void filledData(List<SortBean> mSortList, List<User> userList){
         CharacterParser characterParser = CharacterParser.getInstance();
-        for(int i=0; i<names.length; i++){
+        for(int i=0; i<userList.size(); i++){
             SortBean sortBean = new SortBean();
-            sortBean.setName(names[i]);
-            sortBean.setFriendPortrait(avatars[i]);
+            sortBean.setUser(userList.get(i));
             //sortBean.setCount(0);
             //汉字转换成拼音
-            String pinyin = characterParser.getSelling(names[i]);
+            String pinyin = characterParser.getSelling(userList.get(i).getUsername());
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
             // 正则表达式，判断首字母是否是英文字母

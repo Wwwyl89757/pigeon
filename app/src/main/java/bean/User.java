@@ -1,5 +1,7 @@
 package bean;
 
+import java.io.Serializable;
+
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobPointer;
@@ -8,7 +10,7 @@ import cn.bmob.v3.datatype.BmobPointer;
  * Created by Administrator on 2017/7/22.
  */
 
-public class User extends BmobUser {
+public class User extends BmobUser implements Serializable{
 
     private BmobFile avatar;
 

@@ -138,7 +138,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                     .appendPath("conversationlist")
                     .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), "false") //设置私聊会话是否聚合显示
-                    .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "false")//群组
+                    .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), "true")//群组
+                    .appendQueryParameter(Conversation.ConversationType.DISCUSSION.getName(),"true")//讨论组
                     .appendQueryParameter(Conversation.ConversationType.PUBLIC_SERVICE.getName(), "false")//公共服务号
                     .appendQueryParameter(Conversation.ConversationType.APP_PUBLIC_SERVICE.getName(), "false")//订阅号
                     .appendQueryParameter(Conversation.ConversationType.SYSTEM.getName(), "true")//系统

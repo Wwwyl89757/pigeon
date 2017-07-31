@@ -64,8 +64,6 @@ public class EditCircleActivity extends AppCompatActivity {
         actionBar.setTitle("");
         actionBar.setDisplayHomeAsUpEnabled(true);
         mUser = MyApp.INSTANCE().getCurrentuser();
-
-
         mPhotoChooseAdapter = new PhotoChooseAdapter(EditCircleActivity.this);
         gridView.setAdapter(mPhotoChooseAdapter);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

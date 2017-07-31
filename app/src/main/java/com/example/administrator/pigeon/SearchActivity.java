@@ -1,6 +1,7 @@
 package com.example.administrator.pigeon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -44,7 +45,10 @@ import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.FindListener;
+import config.Config;
+import io.rong.imageloader.core.ImageLoader;
 import model.UserModel;
+import myapp.MyApp;
 
 /**
  * Created by sfc on 2017/7/25.
@@ -61,7 +65,8 @@ public class SearchActivity extends AppCompatActivity {
     TextView search_text;
     @ViewInject(R.id.search_none)
     TextView none_text;
-
+    @ViewInject(R.id.img_search_avatar)
+    ImageView img_avatar;
     User user;
 
     @Override
@@ -75,7 +80,6 @@ public class SearchActivity extends AppCompatActivity {
         ViewUtils.inject(this);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        user = new User();
     }
 
 
@@ -103,8 +107,8 @@ public class SearchActivity extends AppCompatActivity {
                         none_text.setVisibility(View.GONE);
                         search_layout.setVisibility(View.VISIBLE);
                         search_text.setText(list.get(0).getUsername());
-                        user.setObjectId(list.get(0).getObjectId());
-                        user.setUsername(list.get(0).getUsername());
+                        ImageLoader.getInstance().displayImage(list.get(0).getAvatar().getUrl(),img_avatar, Config.options);
+                        user = list.get(0);
                     }
                 }else {
                     Toast.makeText(SearchActivity.this,"查询好友失败",Toast.LENGTH_SHORT).show();
@@ -158,12 +162,22 @@ public class SearchActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @OnClick(R.id.button_add)
-    public void onClickAdd(View view ){
-        BmobIMUserInfo info = new BmobIMUserInfo();
-        info.setUserId(user.getObjectId());
-        info.setName(user.getUsername());
-        UserModel userModel = UserModel.getInstance(SearchActivity.this);
-        userModel.sendFriendRequest(info);
+    @OnClick(R.id.layout_add)
+    public void toDetails(View view){
+        boolean isFriend = false;
+        Intent intent = new Intent(this, DetailsActivity.class);
+        for (User frienduser:MyApp.INSTANCE().getFriendList()){
+            if (frienduser.getObjectId().equals(user.getObjectId())){
+                isFriend = true;
+            };
+        }
+        if (MyApp.INSTANCE().getCurrentuser().getObjectId().equals(user.getObjectId())){
+            isFriend = true;
+        }
+        intent.putExtra("isFriend",isFriend);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("frienduser",user);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

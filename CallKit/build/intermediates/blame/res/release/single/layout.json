@@ -188,12 +188,12 @@
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\exploded-aar\\pigeon\\IMKit\\unspecified\\res\\layout\\rc_ext_indicator.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_voip_contact_container.xml",
-        "source": "E:\\androidMyCode\\pigeon\\CallKit\\src\\main\\res\\layout\\rc_voip_contact_container.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_voip_call_bottom_incoming_button_layout.xml",
         "source": "E:\\androidMyCode\\pigeon\\CallKit\\src\\main\\res\\layout\\rc_voip_call_bottom_incoming_button_layout.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_voip_contact_container.xml",
+        "source": "E:\\androidMyCode\\pigeon\\CallKit\\src\\main\\res\\layout\\rc_voip_contact_container.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\CallKit\\build\\intermediates\\res\\merged\\release\\layout\\rc_item_public_service_conversation.xml",

@@ -12,15 +12,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.pigeon.DetailsActivity;
 import com.example.administrator.pigeon.DiscussionActivity;
 import com.example.administrator.pigeon.R;
 import com.example.administrator.pigeon.SearchActivity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import bean.SortBean;
+import bean.User;
 import io.rong.imkit.RongIM;
 import model.UserModel;
 import myapp.MyApp;
@@ -35,12 +38,9 @@ public class ChatFragment extends Fragment{
      * 根据拼音来排列ListView里面的数据类
      */
     private PinyinComparator pinyinComparator;
-
     private SideBar sideBar;
     private TextView dialog;
-
     private SideBarAdapter adapter;
-
     private ListView sortListView;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,23 +79,28 @@ public class ChatFragment extends Fragment{
                 if (position == 0){
                     startActivity(new Intent(getActivity(),SearchActivity.class));
                 }else if(position == 1){
-                    startActivity(new Intent(getActivity(),DiscussionActivity.class));
+                    Intent intent = new Intent(new Intent(getActivity(),DiscussionActivity.class));
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("sourceDateList", (Serializable) sourceDateList);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }else {
                     Toast.makeText(getActivity(),RongIM.getInstance().toString(),Toast.LENGTH_SHORT).show();
-                    RongIM.getInstance().startPrivateChat(getActivity(),MyApp.INSTANCE().getFriendList().get(position-2).getObjectId(), "标题");
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    for (User user : MyApp.INSTANCE().getFriendList()){
+                        if (sourceDateList.get(position).getUser().equals(user)){
+                            Bundle bundle = new Bundle();
+                            bundle.putSerializable("frienduser",user);
+                            intent.putExtras(bundle);
+                        }
+                    }
+                    startActivity(intent);
                 }
             }
         });
 
-
-        //添加尾部好友数
-        //View view = LayoutInflater.from(getActivity()).inflate(R.layout.number_friends, null);
-        //sortListView.addFooterView(view);
-
         sortListView.setAdapter(adapter);
     }
-
-
 
     private void getAllFriend() {
 
@@ -103,17 +108,13 @@ public class ChatFragment extends Fragment{
             UserModel userModel = UserModel.getInstance(getActivity());
             userModel.queryFriends(MyApp.INSTANCE().getCurrentuser(),sourceDateList,adapter);
         }else {
-            String[] names = new String[MyApp.INSTANCE().getFriendList().size()];
-            String[] avatars = new String[MyApp.INSTANCE().getFriendList().size()];
-            for (int i = 0;i < MyApp.INSTANCE().getFriendList().size();i ++){
-                names[i] = MyApp.INSTANCE().getFriendList().get(i).getUsername();
-                avatars[i] = MyApp.INSTANCE().getFriendList().get(i).getAvatar().getUrl();
-            }
-            UserModel.getInstance(getActivity()).filledData(sourceDateList,names,avatars);
+            UserModel.getInstance(getActivity()).filledData(sourceDateList,MyApp.INSTANCE().getFriendList());
             // 根据a-z进行排序源数据
             Collections.sort(sourceDateList, pinyinComparator);
-            sourceDateList.add(0,new SortBean("新的朋友","↑"));
-            sourceDateList.add(1,new SortBean("群聊","↑"));
+            User user1 = new User();user1.setUsername("新的朋友");
+            sourceDateList.add(0,new SortBean(user1,"↑"));
+            User user2 = new User();user2.setUsername("群聊");
+            sourceDateList.add(1,new SortBean(user2,"↑"));
             adapter.notifyDataSetChanged();
         }
 

@@ -1,35 +1,40 @@
 package bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/7/27.
  */
 
-public class SortBean implements Comparable<SortBean>{
+public class SortBean implements Serializable,Comparable<SortBean>{
 
-    private String name;//好友
     private String firstLetter;//好友名字拼音首字母
-    private String friendPortrait;//好友头像
+    private User user;//好友对象
+    private boolean checkBox;
 
-    public SortBean(String name, String firstLetter, String friendPortrait) {
-        this.name = name;
-        this.firstLetter = firstLetter;
-        this.friendPortrait = friendPortrait;
-    }
-
-    public SortBean(String name, String firstLetter) {
-        this.name = name;
+    public SortBean(User user,String firstLetter) {
+        this.user = user;
         this.firstLetter = firstLetter;
     }
+
 
     public SortBean() {
     }
 
-    public String getName() {
-        return name;
+    public void setCheckBox(boolean checkBox) {
+        this.checkBox = checkBox;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean isCheckBox() {
+        return checkBox;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getFirstLetter() {
@@ -40,16 +45,10 @@ public class SortBean implements Comparable<SortBean>{
         this.firstLetter = firstLetter;
     }
 
-    public String getFriendPortrait() {
-        return friendPortrait;
-    }
 
-    public void setFriendPortrait(String friendPortrait) {
-        this.friendPortrait = friendPortrait;
-    }
 
     @Override
     public int compareTo(SortBean o) {
-        return (o.getFirstLetter().charAt(0) - this.getFirstLetter().charAt(0));
+        return o.getFirstLetter().charAt(0) - this.getFirstLetter().charAt(0);
     }
 }

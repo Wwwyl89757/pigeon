@@ -54,7 +54,7 @@
                 android:background="@color/bg_gray"/>
 
             <LinearLayout
-                android:id="@+id/scan"
+                android:id="@+id/layout_scan"
                 android:background="@color/white"
                 android:layout_weight="7"
                 android:orientation="horizontal"

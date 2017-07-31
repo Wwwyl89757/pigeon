@@ -77,13 +77,13 @@ public class SideBarAdapter extends BaseAdapter implements SectionIndexer {
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.friend_name.setText(list.get(position).getName());
+        viewHolder.friend_name.setText(list.get(position).getUser().getUsername());
         if(position == 0){
             viewHolder.friend_icon.setImageResource(R.drawable.new_friend);
         }else if(position == 1){
             viewHolder.friend_icon.setImageResource(R.drawable.group_chat);
         }else {
-            ImageLoader.getInstance().displayImage(list.get(position).getFriendPortrait(), viewHolder.friend_icon, Config.options);
+            ImageLoader.getInstance().displayImage(list.get(position).getUser().getAvatar().getUrl(), viewHolder.friend_icon, Config.options);
         }
 
 
@@ -123,7 +123,6 @@ public class SideBarAdapter extends BaseAdapter implements SectionIndexer {
      * 根据ListView的当前位置获取分类的首字母的Char ascii值
      */
     public int getSectionForPosition(int position) {
-        Log.e("error",list.get(position).getFirstLetter().charAt(0)+"");
         return list.get(position).getFirstLetter().charAt(0);
     }
 
