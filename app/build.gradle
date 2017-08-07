@@ -18,6 +18,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "armeabi-v7a", "x86"
@@ -28,6 +29,17 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    task nativeLibsToJar(type: Zip, description: "create a jar archive of the native libs") {
+        destinationDir file("$projectDir/libs")
+        baseName "Native_Libs2"
+        extension "jar"
+        from fileTree(dir: "libs", include: "**/*.so")
+        into "lib"
+    }
+
+    tasks.withType(JavaCompile) {
+        compileTask -> compileTask.dependsOn(nativeLibsToJar)
     }
 }
 
@@ -55,11 +67,8 @@ dependencies {
     //为了降低开发者的使用成本，自v3.4.7开始，同步提供aar格式的文件，此aar包含libbmob.so、依赖jar包(okhttp、okio、rx、gson等)及自动更新组件所需要的资源文件
     compile 'cn.bmob.android:bmob-sdk:3.5.0'
     compile files('libs/MiPush_SDK_Client_3_2_2.jar')
-    compile project(':CallKit')
-    compile project(':CallLib')
     compile project(':IMKit')
     compile project(':IMLib')
-    compile project(':RedPacket')
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okio:okio:1.7.0'
     compile project(':library')

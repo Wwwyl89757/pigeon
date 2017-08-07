@@ -9,6 +9,7 @@ import com.example.administrator.pigeon.R;
 
 import java.util.ArrayList;
 
+import bean.Friend;
 import bean.User;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.Bmob;
@@ -38,20 +39,17 @@ public class MyApp extends Application {
     private String token;
     private User currentuser;
     private String userAvatarUrl;
-    private ArrayList<User> friendList = new ArrayList<>();
+    private ArrayList<Friend> friendList = new ArrayList<>();
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-
-        Bmob.initialize(this,"7714967b6d8406fb9fe456b2fffff1e3");
-        setInstance(this);
-        RongIM.init(this);
-
         //只有主进程运行的时候才需要初始化
         if (getApplicationInfo().packageName.equals(getCurProcessName(this))){
+            Bmob.initialize(this,"7714967b6d8406fb9fe456b2fffff1e3");
+            setInstance(this);
+            RongIM.init(this);
             //im初始化
             BmobIM.init(this);
             //注册消息接收器
@@ -76,11 +74,11 @@ public class MyApp extends Application {
         return currentuser;
     }
 
-    public void setFriendList(ArrayList<User> friendList) {
+    public void setFriendList(ArrayList<Friend> friendList) {
         this.friendList = friendList;
     }
 
-    public ArrayList<User> getFriendList() {
+    public ArrayList<Friend> getFriendList() {
         return friendList;
     }
 

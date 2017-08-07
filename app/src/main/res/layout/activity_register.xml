@@ -1,67 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_gray"
     android:orientation="vertical"
     tools:context=".RegisterActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="#fff"
-        android:orientation="horizontal"
-        android:padding="5dp" >
+        android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/image_back"
-            android:layout_width="20dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/arrows1" />
-
-        <TextView
+            android:id="@+id/img_register_bg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="返回"
-            android:textSize="20sp" />
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="-600dp"
+            android:layout_marginTop="-50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_login03" />
+    </FrameLayout>
 
     <TableLayout
+        android:id="@+id/layout_table"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
         android:layout_marginBottom="2dp">
         <TableRow
             android:id="@+id/tableRow1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="#fff"
-            android:padding="8dp" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="账号"
-                android:textSize="16sp" />
+            android:padding="5dp" >
 
             <EditText
-                android:id="@+id/edit_register_name"
+                android:id="@+id/edit_register_phone"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:background="@null"
-                android:hint="用户名/邮箱/手机号"
+                android:hint="请输入手机号"
+                android:textColorHint="@color/bg_gray2"
+                android:gravity="center"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/image_name"
+                android:id="@+id/image_phone"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:src="@drawable/delete1"
                 android:visibility="invisible" />
@@ -71,31 +58,23 @@
             android:id="@+id/tableRow2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="#fff"
-            android:padding="8dp" >
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="密码"
-                android:textSize="16sp" />
+            android:padding="5dp" >
 
             <EditText
-                android:id="@+id/edit_register_pass"
+                android:id="@+id/edit_register_name"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:background="@null"
-                android:hint="6-16位字母/数字"
-                android:inputType="textPassword"
+                android:hint="请输入昵称"
+                android:textColorHint="@color/bg_gray2"
+                android:gravity="center"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/image_pass"
+                android:id="@+id/image_name"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="30sp"
                 android:layout_weight="1"
                 android:src="@drawable/delete1"
                 android:visibility="invisible" />
@@ -105,31 +84,51 @@
             android:id="@+id/tableRow3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="3dp"
-            android:background="#fff"
-            android:padding="8dp" >
+            android:padding="5dp" >
 
-            <TextView
+            <EditText
+                android:id="@+id/edit_register_pass"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
-                android:text="确认密码"
+                android:layout_weight="10"
+                android:hint="请输入密码（6-16位字母/数字）"
+                android:inputType="textPassword"
+                android:textColorHint="@color/bg_gray2"
+                android:gravity="center"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/image_pass"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:src="@drawable/delete1"
+                android:visibility="invisible" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" >
 
             <EditText
                 android:id="@+id/edit_repass"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:background="@null"
-                android:hint="请再次输入密码"
+                android:hint="确认密码"
                 android:inputType="textPassword"
+                android:textColorHint="@color/bg_gray2"
+                android:gravity="center"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/image_repass"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:src="@drawable/delete1"
                 android:visibility="invisible" />
@@ -137,52 +136,78 @@
     </TableLayout>
 
     <LinearLayout
+        android:layout_marginLeft="40dp"
+        android:padding="5dp"
+        android:id="@+id/layout_regis_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/layout_table"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edit_secode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="输入验证码"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColorHint="@color/bg_gray2"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取验证码"
+            android:background="@color/text_blue"
+            android:layout_marginRight="50dp"
+            android:id="@+id/button_getcode"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_regis_avatar"
+        android:layout_below="@id/layout_regis_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp"
-        android:background="#fff"
-        android:orientation="horizontal"
-        android:padding="8dp" >
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_weight="1"
-            android:text="头像"
+            android:layout_weight="3"
+            android:layout_gravity="center"
+            android:text="点击上传头像"
+            android:gravity="right"
             android:textSize="16sp"
+            android:textColor="@color/bg_gray2"
             android:id="@+id/textView" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="right"
-                android:src="@drawable/avatar1"
+                android:layout_weight="2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/xiaolian"
                 android:id="@+id/img_avatar"/>
-        </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/button_register"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/layout_regis_avatar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/sign_button"
         android:gravity="center"
         android:text="注册"
         android:enabled="false"
         android:textSize="18sp" />
 
     <CheckBox
+        android:layout_below="@id/button_register"
+        android:layout_gravity="right"
         android:id="@+id/checkbox_agree"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/white"
         android:text="同意用户协议" />
 
-</LinearLayout>
+</RelativeLayout>

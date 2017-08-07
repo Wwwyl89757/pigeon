@@ -32,7 +32,7 @@ public class AgreeAddFriendMessage extends BmobIMExtraMessage {
     public boolean isTransient() {
         //如果需要在对方的会话表中新增一条该类型的消息，则设置为false，表明是非暂态会话
         //此处将同意添加好友的请求设置为false，为了演示怎样向会话表和消息表中新增一个类型
-        return false;
+        return true;
     }
 
     public String getUid() {

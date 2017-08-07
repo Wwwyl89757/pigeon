@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_gray">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@color/bar_grey">
+
+        <ImageView
+            android:id="@+id/changepswback_img"
+            android:src="@drawable/ac_back_icon"
+            android:layout_width="48dp"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="#000"
+            android:layout_width="1dp"
+            android:layout_height="24dp"/>
+
+        <TextView
+            android:enabled="false"
+            android:textSize="20sp"
+            android:textColor="#ececec"
+            android:gravity="center"
+            android:text="修改密码"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <View
+            android:layout_width="49dp"
+            android:layout_height="0dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:textSize="15sp"
+        android:gravity="center|left"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        android:text="旧密码："
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <View
+        android:background="#888888"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <EditText
+        android:id="@+id/oldpsw_et"
+        android:inputType="textPassword"
+        android:textSize="15sp"
+        android:paddingLeft="15dp"
+        android:hint="若包含字母,请注意区分大小写"
+        android:background="#fafafa"
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <View
+        android:background="#888888"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <TextView
+        android:text="新密码："
+        android:textSize="15sp"
+        android:gravity="center|left"
+        android:layout_marginLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <View
+        android:background="#888888"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <EditText
+        android:id="@+id/newpsw_et"
+        android:inputType="textPassword"
+        android:textSize="15sp"
+        android:paddingLeft="15dp"
+        android:hint="6-16位，只能包含数字和字母"
+        android:background="#fafafa"
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <View
+        android:background="#888888"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="32dp" />
+
+    <Button
+        android:id="@+id/changepsw_btn"
+        android:textColor="#fafafa"
+        android:textSize="20dp"
+        android:text="确 定"
+        android:background="#aa0000ff"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

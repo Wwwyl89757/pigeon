@@ -1,5 +1,6 @@
 package com.example.administrator.pigeon;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -40,14 +41,12 @@ import myapp.MyApp;
 public class EditCircleActivity extends AppCompatActivity {
 
 
-    private final int REQUEST_CODE = 0x01;
     @ViewInject(R.id.edit_content)
     EditText editContent;
     @ViewInject(R.id.edit_gridView)
     GridView gridView;
 
     private PhotoChooseAdapter mPhotoChooseAdapter;
-    private final String LOGINUSER = "loginuser";
     private User mUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +92,6 @@ public class EditCircleActivity extends AppCompatActivity {
                     list.add(new PhotoItem(path, false));
                 }
             }
-
             mPhotoChooseAdapter.addData(list);
         }
     }
@@ -107,6 +105,7 @@ public class EditCircleActivity extends AppCompatActivity {
             case R.id.action_selected:
                 FriendsCircle friendsCircle = new FriendsCircle();
                 friendsCircle.setWriter(mUser);
+                friendsCircle.setPraiseflag("N");
                 List<BmobFile> fileList = new ArrayList<>();
                 ArrayList<PhotoItem> photoItems = (ArrayList<PhotoItem>) mPhotoChooseAdapter.getData();
                 for (int i = 0; i < photoItems.size() - 1; i++) {
@@ -114,7 +113,7 @@ public class EditCircleActivity extends AppCompatActivity {
                 }
                 friendsCircle.setText(editContent.getText().toString());
                 friendsCircle.setPhotoList(fileList);
-                new FriendCircleModel().sendDynamicItem(friendsCircle);
+                new FriendCircleModel().sendDynamicItem(friendsCircle,this);
                 break;
         }
         return true;

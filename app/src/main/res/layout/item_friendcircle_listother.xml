@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layout_fc_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:id="@+id/write_photo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/write_photo"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/write_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="write_name"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/write_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="data "
+                    android:textSize="10dp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/dynamic_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="20dp"
+            android:textSize="16dp"
+            android:text="dynamic_text" />
+
+        <view.FixedGridView
+            android:id="@+id/dynamic_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:horizontalSpacing="3dp"
+            android:verticalSpacing="3dp"
+            android:numColumns="3">
+        </view.FixedGridView>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnIgnore"
+        android:layout_width="25dp"
+        android:layout_height="17dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/layout_fc_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/micro_comment" />
+
+    <LinearLayout
+        android:id="@+id/liearLayoutIgnore"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="3dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_toLeftOf="@id/btnIgnore"
+        android:layout_below="@id/layout_fc_content"
+        android:background="@color/black"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <Button
+            android:id="@+id/btnPraise"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:drawableLeft="@drawable/micro_comment_praise"
+            android:background="@color/black"
+            android:text="点赞"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnComment"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="left|center_vertical"
+            android:drawableLeft="@drawable/micro_comment_comment"
+            android:background="@color/black"
+            android:text="评论"
+            android:textColor="@color/white" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout01"
+        android:layout_below="@id/btnIgnore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:background="@color/lightgary"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"/>
+
+        <LinearLayout
+            android:id="@+id/layoutParise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:background="@color/lightgary">
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/background"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:background="@color/lightgary">
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

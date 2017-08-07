@@ -19,9 +19,10 @@
     <RadioGroup
         android:id="@+id/rg_tab"
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:background="#fafafa"
+        android:padding="3dp"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 

@@ -34,8 +34,8 @@ public class AddFriendMessage extends BmobIMExtraMessage {
                 JSONObject json =new JSONObject(extra);
                 String name = json.getString("username");
                 add.setName(name);
-//                String avatar = json.getString("avatar");
-//                add.setAvatar(avatar);
+                String avatar = json.getString("avatar");
+                add.setAvatar(avatar);
                 add.setUid(json.getString("userId"));
             }else{
                Log.i("error","AddFriendMessage的extra为空");

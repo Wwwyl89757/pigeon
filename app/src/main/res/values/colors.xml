@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="bg_gray">#44C8BFE7</color>
+    <color name="bg_gray">#f5f3f4f5</color>
     <color name="white">#fff</color>
     <color name="text_gray">#ef010d01</color>
     <color name="text_blue">#ef3798d1</color>
@@ -17,4 +17,12 @@
     <color name="pink">#e91e63</color>
     <color name="pink_pressed">#ec407a</color>
     <color name="chat_bg">#ECF1F5</color>
+    <color name="bg_blue">#2775d6ec</color>
+    <color name="transparent">#00000000</color>
+    <color name="gold">#b89766</color>
+    <color name="micro_list_ignore">#8593B0</color>
+    <color name="lightgary">#EEEEEE</color>
+    <color name="background">#DEDEDE</color>
+    <color name="touming">#00000000</color>
+    <color name="bantouming">#7fffffff</color>
 </resources>

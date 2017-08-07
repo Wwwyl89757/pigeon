@@ -1016,12 +1016,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\drawable-xhdpi\\rc_cs_comment_bg.png"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\u1f47f.png",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f47f.png"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\u1f47c.png",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f47c.png"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\u1f47f.png",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\drawable-xhdpi\\u1f47f.png"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\u1f384.png",

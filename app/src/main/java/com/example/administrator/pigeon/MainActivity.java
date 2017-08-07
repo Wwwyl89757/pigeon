@@ -7,23 +7,42 @@ import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.xys.libzxing.zxing.activity.CaptureActivity;
 
 import java.util.ArrayList;
 
 import adapter.ConversationListAdapterEx;
+import bean.User;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.QueryListener;
 import fragment.ChatFragment;
 import fragment.SelfInfoFragment;
 import fragment.ZoneFragment;
 import io.rong.imkit.RongContext;
+import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
+import listener.OnFragmentResultListener;
+import model.UserModel;
+import myapp.MyApp;
 
 public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, RadioGroup.OnCheckedChangeListener {
 
@@ -48,9 +67,11 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+    }
 
+    private void init() {
         ViewUtils.inject(this);
-
         rbs = new RadioButton[]{rb_chat,rb_conver,rb_zone,rb_user};
         for (RadioButton rb : rbs) {
             //挨着给每个RadioButton加入drawable限制边距以控制显示大小
@@ -84,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         };
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("信鸽");
     }
 
     @Override
@@ -153,12 +176,58 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     public void onBackPressed() {
         //方式一：将此任务转向后台
-//        moveTaskToBack(false);
+//        moveTaskToBack(true);
 
 //        方式二：返回手机的主屏幕
-    Intent intent = new Intent(Intent.ACTION_MAIN);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    intent.addCategory(Intent.CATEGORY_HOME);
-    startActivity(intent);
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
+    }
+
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if(keyCode == KeyEvent.KEYCODE_BACK){
+//            moveTaskToBack(true);
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_search:
+                startActivity(new Intent(this,SearchActivity.class));
+                break;
+            case R.id.action_add:
+                startActivityForResult(new Intent(this,CaptureActivity.class),0);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //得到fragment
+        Fragment fragment = fragments.get(fragments.size()-1);
+        /**
+        * 判断是不是Activity里面Fragment的回调，如果是传递给Fragment
+        */
+        if (fragment instanceof OnFragmentResultListener) {
+            OnFragmentResultListener listener = (OnFragmentResultListener) fragment;
+            listener.OnFragmentResult(requestCode, resultCode, data);
+        }else if(resultCode == RESULT_OK) {
+            final String result = data.getExtras().getString("result");
+            UserModel.getInstance(this).toDetails(result);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -1,5 +1,7 @@
 package config;
 
+import android.graphics.Bitmap;
+
 import com.example.administrator.pigeon.R;
 
 import io.rong.imageloader.core.DisplayImageOptions;
@@ -28,8 +30,11 @@ public class Config {
     public static final DisplayImageOptions options = new DisplayImageOptions.Builder()
             .showStubImage(R.drawable.xiaolian)
             .showImageForEmptyUri(R.drawable.xiaolian)
-            .showImageOnFail(R.drawable.xiaolian).cacheInMemory()
-            .cacheOnDisc().displayer(new RoundedBitmapDisplayer(20))
+            .showImageOnFail(R.drawable.xiaolian)
+            .cacheInMemory(true)
+            .cacheOnDisc(true)
+            .bitmapConfig(Bitmap.Config.RGB_565)
+            .displayer(new RoundedBitmapDisplayer(20))
             .displayer(new FadeInBitmapDisplayer(300)).build();
 
 }

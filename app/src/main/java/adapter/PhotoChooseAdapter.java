@@ -1,5 +1,6 @@
 package adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.PhotoItem;
+import cn.bmob.v3.datatype.BmobFile;
+import config.Config;
 import io.rong.imageloader.core.DisplayImageOptions;
 import io.rong.imageloader.core.ImageLoader;
 import io.rong.imageloader.core.ImageLoaderConfiguration;
@@ -24,19 +27,12 @@ public class PhotoChooseAdapter extends BaseAdapter {
     private List<PhotoItem> albumBeanList;
     private Context mContext;
     private ImageLoader imageLoader = ImageLoader.getInstance();
-    private DisplayImageOptions options;
 
     public PhotoChooseAdapter(Context mContext) {
         albumBeanList = new ArrayList<>();
         albumBeanList.add(new PhotoItem("", true));
         this.mContext = mContext;
         imageLoader.init(ImageLoaderConfiguration.createDefault(mContext));
-        options = new DisplayImageOptions.Builder()
-                .showStubImage(R.drawable.xiaolian)
-                .showImageForEmptyUri(R.drawable.xiaolian)
-                .showImageOnFail(R.drawable.xiaolian).cacheInMemory()
-                .cacheOnDisc().displayer(new RoundedBitmapDisplayer(20))
-                .displayer(new FadeInBitmapDisplayer(300)).build();
     }
 
     @Override
@@ -69,7 +65,7 @@ public class PhotoChooseAdapter extends BaseAdapter {
         if (albumBean.isPick()) {
             viewHolder.imageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.add_photo));
         } else {
-            imageLoader.displayImage("file:///" + albumBean.getFilePath(), viewHolder.imageView, options);
+            imageLoader.displayImage("file:///" + albumBean.getFilePath(), viewHolder.imageView, Config.options);
         }
         return convertView;
     }

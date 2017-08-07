@@ -43,6 +43,8 @@ public class ImageCropActivity extends AppCompatActivity {
     private Uri sourceUri;
     private Uri saveUri;
 
+    private ProgressDialog progressDialog;
+
     private final Handler handler = new Handler();
 
     public static void startCrop(Activity activity, String path) {
@@ -57,7 +59,7 @@ public class ImageCropActivity extends AppCompatActivity {
         setContentView(R.layout.activity_image_crop);
         String path = getIntent().getStringExtra(EXTRA_PATH);
         sourceUri = Uri.fromFile(new File(path));
-
+        progressDialog = new ProgressDialog(this);
         initView();
         registerListener();
     }
@@ -106,7 +108,7 @@ public class ImageCropActivity extends AppCompatActivity {
         doneText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProgressDialog.show(
+                progressDialog.show(
                         ImageCropActivity.this, null, getString(R.string.save_ing), true, false);
                 saveUri = Uri.fromFile(FileUtils.createCropFile(ImageCropActivity.this));
                 saveOutput(cropImageView.getCroppedBitmap());
@@ -182,5 +184,14 @@ public class ImageCropActivity extends AppCompatActivity {
             }
         });
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (progressDialog != null && progressDialog.isShowing())
+        {
+            progressDialog.dismiss();
+        }
+        super.onDestroy();
     }
 }

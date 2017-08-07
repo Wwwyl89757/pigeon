@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Administrator on 2017/7/27.
  */
 
-public class SortBean implements Serializable,Comparable<SortBean>{
+public class SortBean implements Serializable{
 
     private String firstLetter;//好友名字拼音首字母
     private User user;//好友对象
@@ -45,10 +45,4 @@ public class SortBean implements Serializable,Comparable<SortBean>{
         this.firstLetter = firstLetter;
     }
 
-
-
-    @Override
-    public int compareTo(SortBean o) {
-        return o.getFirstLetter().charAt(0) - this.getFirstLetter().charAt(0);
-    }
 }

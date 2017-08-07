@@ -18,7 +18,7 @@
 
     <ImageView
         android:layout_marginTop="20dp"
-        android:id="@+id/requesticon_image"
+        android:id="@+id/img_vali_avatar"
         android:src="@drawable/request_add"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
         <TextView
             android:textColor="#1a1a1a"
             android:textSize="25sp"
-            android:id="@+id/requestname_text"
+            android:id="@+id/text_vali_name"
             android:text="信鸽"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -63,8 +63,8 @@
             android:orientation="vertical">
             <TextView
                 android:textSize="18sp"
-                android:id="@+id/requestverify_text"
-                android:text="你好，我们能成为朋友么你好你好，我们能成为朋友么你好你好，我们能成为朋友么你好你好，我们能成为朋友么你好"
+                android:id="@+id/text_vali_message"
+                android:text=""
                 android:maxLines="3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

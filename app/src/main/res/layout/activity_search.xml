@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_margin="8dp"
+        android:layout_margin="20dp"
         android:id="@+id/layout_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,6 +32,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:gravity="center"
+        android:layout_marginBottom="20dp"
         android:visibility="gone"/>
     <LinearLayout
         android:visibility="gone"
@@ -44,10 +45,11 @@
             android:layout_width="match_parent"
             android:layout_height="60dp">
             <ImageView
+                android:padding="10dp"
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/search"/>
+                android:src="@drawable/search_black"/>
             <TextView
                 android:id="@+id/show_textview"
                 android:background="@null"
@@ -58,7 +60,7 @@
         </LinearLayout>
         <TextView
             android:layout_marginTop="-5dp"
-            android:background="#1aff00"
+            android:background="@color/bg_gray"
             android:layout_width="match_parent"
             android:layout_height="1dp" />
     </LinearLayout>

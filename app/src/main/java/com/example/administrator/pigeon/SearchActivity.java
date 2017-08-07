@@ -11,6 +11,7 @@ import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import bean.AddFriendMessage;
+import bean.Friend;
 import bean.User;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.newim.bean.BmobIMConversation;
@@ -54,7 +56,7 @@ import myapp.MyApp;
  * Created by sfc on 2017/7/25.
  */
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements TextWatcher {
     @ViewInject(R.id.show_textview)
     TextView show_textview;
     @ViewInject(R.id.dialog_layout)
@@ -78,20 +80,24 @@ public class SearchActivity extends AppCompatActivity {
 
     private void init() {
         ViewUtils.inject(this);
+        View mainActionBarView = LayoutInflater.from(this).inflate(R.layout.actionbar_search, null);
         ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setCustomView(mainActionBarView);
+        EditText edit_search = (EditText) mainActionBarView.findViewById(R.id.edit_search);
+        edit_search.addTextChangedListener(this);
     }
 
 
     @OnClick(R.id.show_textview)
     public void onClickAddFriend(View view){
         String tx = show_textview.getText().toString();
-        String friendName = tx.substring(3,tx.length());
-        Toast.makeText(SearchActivity.this,friendName,Toast.LENGTH_SHORT).show();
+        String phoneNum = tx.substring(3,tx.length());
         //创建查询对象
         BmobQuery<User> query = new BmobQuery<>();
         //添加查询条件
-        query.addWhereEqualTo("username", friendName);
+        query.addWhereEqualTo("mobilePhoneNumber", phoneNum);
         //执行查询方法
         query.findObjects(new FindListener<User>() {
             @Override
@@ -116,9 +122,6 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
-        BmobIMUserInfo info = new BmobIMUserInfo();
-        info.setUserId("FzgjSSSZ");
-        info.setName("123");
     }
 
     @Override
@@ -131,43 +134,12 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.bmap_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.menu_search);
-        //是搜索框默认展开
-        searchItem.expandActionView();
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint("搜索");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                if (newText.isEmpty()){
-                    dialog_layout.setVisibility(View.GONE);
-                    search_layout.setVisibility(View.GONE);
-                    none_text.setVisibility(View.GONE);
-                }else {
-                    dialog_layout.setVisibility(View.VISIBLE);
-                    show_textview.setText("搜索："+newText);
-                }
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
-
     @OnClick(R.id.layout_add)
     public void toDetails(View view){
         boolean isFriend = false;
         Intent intent = new Intent(this, DetailsActivity.class);
-        for (User frienduser:MyApp.INSTANCE().getFriendList()){
-            if (frienduser.getObjectId().equals(user.getObjectId())){
+        for (Friend friend:MyApp.INSTANCE().getFriendList()){
+            if (friend.getFriendUser().getObjectId().equals(user.getObjectId())){
                 isFriend = true;
             };
         }
@@ -179,5 +151,29 @@ public class SearchActivity extends AppCompatActivity {
         bundle.putSerializable("frienduser",user);
         intent.putExtras(bundle);
         startActivity(intent);
+        finish();
+    }
+
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if (s.length() == 0){
+            dialog_layout.setVisibility(View.GONE);
+            search_layout.setVisibility(View.GONE);
+            none_text.setVisibility(View.GONE);
+        }else {
+            dialog_layout.setVisibility(View.VISIBLE);
+            show_textview.setText("搜索：" + s);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
     }
 }

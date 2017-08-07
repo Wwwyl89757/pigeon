@@ -109,14 +109,11 @@ public class SideBarAdapter extends BaseAdapter implements SectionIndexer {
         return convertView;
     }
 
-
-
     final static class ViewHolder {
         TextView letter;
         TextView friend_name;
         ImageView friend_icon;
     }
-
 
 
     /**

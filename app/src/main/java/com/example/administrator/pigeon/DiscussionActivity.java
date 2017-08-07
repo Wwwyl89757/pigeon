@@ -113,6 +113,7 @@ public class DiscussionActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(String s) {
 //                        RongIM.getInstance().startDiscussionChat(DiscussionActivity.this, s, "群聊");
+                        DiscussionActivity.this.finish();
                     }
 
                     @Override

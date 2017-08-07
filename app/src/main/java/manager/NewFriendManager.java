@@ -17,6 +17,7 @@ import config.Config;
 import dao.DaoMaster;
 import dao.DaoSession;
 import dao.NewFriendDao;
+import myapp.MyApp;
 
 /**
  * Created by Administrator on 2017/7/25.
@@ -33,8 +34,8 @@ public class NewFriendManager {
      * @return
      */
     public static NewFriendManager getInstance(Context context) {
-        SharedPreferences preferences=context.getSharedPreferences("user", Context.MODE_PRIVATE);
-        String loginId = preferences.getString("userId", "");
+        String loginId = MyApp.INSTANCE().getCurrentuser().getObjectId();
+        Log.i("userId",loginId);
         if(TextUtils.isEmpty(loginId)){
             throw new RuntimeException("you must login.");
         }

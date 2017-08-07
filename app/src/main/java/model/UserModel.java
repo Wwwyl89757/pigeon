@@ -1,12 +1,18 @@
 package model;
 
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.util.Freezable;
+import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.administrator.pigeon.DetailsActivity;
 import com.example.administrator.pigeon.LoginActivity;
 import com.example.administrator.pigeon.MainActivity;
 import com.example.administrator.pigeon.R;
@@ -37,6 +43,7 @@ import cn.bmob.newim.listener.ConnectListener;
 import cn.bmob.newim.listener.MessageSendListener;
 import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.CloudCodeListener;
@@ -48,6 +55,7 @@ import cn.bmob.v3.listener.UploadFileListener;
 import config.Config;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.UserInfo;
 import manager.NewFriendManager;
 import myapp.MyApp;
 import util.CharacterParser;
@@ -58,7 +66,7 @@ import util.PinyinComparator;
  * Created by Administrator on 2017/7/25.
  */
 
-public class UserModel extends BaseModel {
+public class  UserModel extends BaseModel {
 
     private  static  Context context;
     public static UserModel getInstance(Context context) {
@@ -68,39 +76,46 @@ public class UserModel extends BaseModel {
     private UserModel(Context context) {
         this.context = context;
     }
+    private ProgressDialog progressDialog;
 
     /** 登录
-     * @param username
      * @param password
      */
-    public void login(final String username, String password) {
+    public void login(final String phoneNumber, final String password) {
+        progressDialog = ProgressDialog.show(context,"","正在登录");
+        BmobQuery<User> query = new BmobQuery<>();
+        query.addWhereEqualTo("mobilePhoneNumber",phoneNumber);
+        query.findObjects(new FindListener<User>() {
+            @Override
+            public void done(List<User> list, BmobException e) {
+                if (e == null){
+                    if (list.size() == 0){
+                        Toast.makeText(context,"该用户不存在",Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }else {
+                        doLogin(list.get(0).getUsername(),password);
+                    }
+                }
+            }
+        });
+    }
 
-        final User user =new User();
-        user.setUsername(username);
-        user.setPassword(password);
+    private void doLogin(String username,String password) {
+        final User loginUser =new User();
+        loginUser.setUsername(username);
+        loginUser.setPassword(password);
         if("".equals(username.trim()) || "".equals(password.trim())){
             Toast.makeText(context,"用户名或密码不能为空",Toast.LENGTH_SHORT).show();;
         }else {
-            //创建查询对象
-            BmobQuery<User> query = new BmobQuery<>();
-            //添加查询条件
-            query.addWhereEqualTo("username", username);
-            query.addWhereEqualTo("password", password);
-            //执行查询方法
-            query.findObjects(new FindListener<User>() {
+            loginUser.login(new SaveListener<User>() {
                 @Override
-                public void done(List<User> list, BmobException e) {
+                public void done(User user, BmobException e) {
                     if(e == null){
-                        if(list.size() != 0){
-//                        Toast.makeText(LoginActivity.this,"登陆成功",Toast.LENGTH_SHORT).show();
-
-                            getToken(list.get(0));
-                        }else {
-                            Toast.makeText(context,"登陆失败",Toast.LENGTH_SHORT).show();
-                        }
+                        getToken(user);
                     }else{
                         Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
-                        Toast.makeText(context,"连接服务器错误",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"登录失败",Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 }
             });
@@ -126,13 +141,13 @@ public class UserModel extends BaseModel {
                 if (e == null) {
                     String result = object.toString();
                     Log.i("云端逻辑返回值：" , result);
-//                    Toast.makeText(LoginActivity.this,result,Toast.LENGTH_SHORT).show();
                     //对返回值进行Json解析
                     String token = doJson(result);
                     //通过token进行连接
                     connect(token,user);
                 } else {
                     Log.i(" error:" , e.getMessage());
+                    progressDialog.dismiss();
                 }
             }
         });
@@ -147,6 +162,7 @@ public class UserModel extends BaseModel {
                     Log.i("BmobConnect","BmobIMconnect success");
                 } else {
                     Log.i("BmobConnect",e.getErrorCode() + "/" + e.getMessage());
+                    progressDialog.dismiss();
                 }
             }
         });
@@ -179,12 +195,15 @@ public class UserModel extends BaseModel {
                         editor.putString("token", MyApp.INSTANCE().getToken());
                         editor.putString("username",MyApp.INSTANCE().getCurrentuser().getUsername());
                         editor.putString("userId",MyApp.INSTANCE().getCurrentuser().getObjectId());
+                        editor.putString("sessionToken",user.getSessionToken());
                         editor.putString("avatarUrl",user.getAvatar().getUrl());
+                        editor.putString("phoneNumber",user.getMobilePhoneNumber());
                         editor.commit();
                     }
                     Intent intent = new Intent(getContext(),MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+                    ((Activity)context).finish();
+                    progressDialog.dismiss();
                 }
 
                 /**
@@ -195,6 +214,7 @@ public class UserModel extends BaseModel {
                 public void onError(RongIMClient.ErrorCode errorCode) {
                     Toast.makeText(context,errorCode+"",Toast.LENGTH_SHORT).show();
                     Log.i("errorCode",errorCode+"");
+                    progressDialog.dismiss();
                 }
             });
         }
@@ -231,12 +251,28 @@ public class UserModel extends BaseModel {
      * @param password
      * @param pwdagain
      */
-    public void register(String username, String password, String pwdagain, BmobFile avatar) {
-        if(username.length()>0 && password.length()>0 && pwdagain.length()>0 ){
+    public void register(final String phoneNumber, String code, final String username, final String password, final String pwdagain, final BmobFile avatar) {
+        progressDialog = ProgressDialog.show(context,"","注册中");
+        BmobSMS.verifySmsCode( phoneNumber, code, new UpdateListener() {
 
+            @Override
+            public void done(BmobException e) {
+                if (e == null) {
+                    veryOther(phoneNumber, username, password, pwdagain, avatar);
+                } else {
+                    Toast.makeText(context, "验证码错误" + e.toString(), Toast.LENGTH_SHORT).show();
+                    Log.i("验证码错误",e.toString()+e.getLocalizedMessage());
+                    progressDialog.dismiss();
+                }
+            }
+        });
+    }
+
+    private void veryOther(String phoneNumber, String username, String password,String pwdagain, BmobFile avatar) {
+        if(username.length()>0 && password.length()>0 && pwdagain.length()>0 ){
             if (Pattern.matches("[0-9A-Za-z]{6,16}", password)) {
                 if (password.equals(pwdagain)) {
-                    checkInDatabase(username, password, avatar);
+                    checkInDatabase(phoneNumber,username, password, avatar);
                 } else {
                     Toast.makeText(context, "密码不一致", Toast.LENGTH_SHORT).show();
                 }
@@ -247,34 +283,37 @@ public class UserModel extends BaseModel {
         }else{
             Toast.makeText(context, "注册信息请填写完整", Toast.LENGTH_SHORT).show();
         }
+        progressDialog.dismiss();
     }
 
-    private void checkInDatabase(final String username, final String pass,final BmobFile avatar) {
+    private void checkInDatabase(final String phoneNumber,final String username, final String pass,final BmobFile avatar) {
         //创建查询对象
         BmobQuery<User> query = new BmobQuery<>();
         //添加查询条件
-        query.addWhereEqualTo("username", username);
+        query.addWhereEqualTo("mobilePhoneNumber", phoneNumber);
         //执行查询方法
         query.findObjects(new FindListener<User>() {
             @Override
             public void done(List<User> list, BmobException e) {
                 if(e == null){
                     if(list.size() != 0){
-                        Toast.makeText(context,"该账户已经被注册",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"该手机号已经被注册",Toast.LENGTH_SHORT).show();
                     }else {
-                        insertIntoDB(username,pass,avatar);
+                        insertIntoDB(phoneNumber,username,pass,avatar);
                     }
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                     Toast.makeText(context,"连接服务器错误",Toast.LENGTH_SHORT).show();
                 }
+                progressDialog.dismiss();
             }
         });
     }
 
-    private void insertIntoDB(String username, String pass,final BmobFile avatar) {
+    private void insertIntoDB(String phoneNumber,String username, String pass,final BmobFile avatar) {
 
         final User user = new User();
+        user.setMobilePhoneNumber(phoneNumber);
         user.setUsername(username);
         user.setPassword(pass);
         user.setAvatar(avatar);
@@ -291,7 +330,6 @@ public class UserModel extends BaseModel {
                                 Toast.makeText(context,"注册成功",Toast.LENGTH_SHORT).show();
                                 context.startActivity(new Intent(context,LoginActivity.class));
                             }else {
-//                    Toast.makeText(RegisterActivity.this,"插入数据库失败",Toast.LENGTH_SHORT).show();
                                 Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                             }
                         }
@@ -299,6 +337,7 @@ public class UserModel extends BaseModel {
                 }else {
                     Log.i("error",e.getErrorCode()+e.getMessage());
                 }
+                progressDialog.dismiss();
             }
         });
 
@@ -309,17 +348,25 @@ public class UserModel extends BaseModel {
      * 同意添加好友：1、发送同意添加的请求，2、添加对方到自己的好友列表中
      */
     public void agreeAddFriend(final User friend){
-        Friend f = new Friend();
+        for (Friend friend1 : MyApp.INSTANCE().getFriendList()){
+            if (friend1.getFriendUser().getObjectId().equals(friend.getObjectId())){
+                Toast.makeText(context,"对方已经是您的好友",Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+        final Friend f = new Friend();
         f.setUser(MyApp.INSTANCE().getCurrentuser());
         f.setFriendUser(friend);
-        f.save(new SaveListener() {
+        f.save(new SaveListener<String>() {
             @Override
-            public void done(Object o, BmobException e) {
+            public void done(String s, BmobException e) {
                 if (e == null) {
-                    MyApp.INSTANCE().getFriendList().add(friend);
+                    f.setObjectId(s);
+                    MyApp.INSTANCE().getFriendList().add(f);
                     Toast.makeText(context, "添加好友成功", Toast.LENGTH_SHORT).show();
+                    ((Activity) context).finish();
+                    context.startActivity(new Intent(context,MainActivity.class));
                 } else {
-                    Toast.makeText(context, "添加好友失败", Toast.LENGTH_SHORT).show();
                     Log.i("error:", e.getErrorCode() + e.getMessage());
                 }
             }
@@ -333,9 +380,6 @@ public class UserModel extends BaseModel {
     public void queryFriends(User user, final List<SortBean> data, final SideBarAdapter adapter){
         final PinyinComparator pinyinComparator = new PinyinComparator();
         BmobQuery<Friend> query = new BmobQuery<>();
-//        final User user = (User) User.getCurrentUser();
-//        Toast.makeText(context,user.getUsername(),Toast.LENGTH_SHORT).show();
-        Log.i("username",user.getUsername());
         query.addWhereEqualTo("user", user);
         query.include("friendUser");
         query.order("-updatedAt");
@@ -343,20 +387,26 @@ public class UserModel extends BaseModel {
             @Override
             public void done(List<Friend> list, BmobException e) {
                 if(e == null){
-                    String[] names = new String[list.size()];
-                    String[] avatars = new String[list.size()];
                     Log.i("list.size",list.size()+"");
                     for (int i = 0;i < list.size();i ++){
-                        MyApp.INSTANCE().getFriendList().add(list.get(i).getFriendUser());
+                        MyApp.INSTANCE().getFriendList().add(list.get(i));
                     }
                     filledData(data,MyApp.INSTANCE().getFriendList());
+                    for (SortBean sortBean : data){
+                        Log.i("sortBean2",sortBean.getFirstLetter());
+                    }
                     // 根据a-z进行排序源数据
                     Collections.sort(data, pinyinComparator);
+                    for (SortBean sortBean : data){
+                        Log.i("sortBean3",sortBean.getFirstLetter());
+                    }
                     User user1 = new User();user1.setUsername("新的朋友");
                     data.add(0,new SortBean(user1,"↑"));
                     User user2 = new User();user2.setUsername("群聊");
                     data.add(1,new SortBean(user2,"↑"));
                     adapter.notifyDataSetChanged();
+                    setProvider();
+                    RongIM.getInstance().setMessageAttachedUserInfo(true);
                 }else{
                     Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                 }
@@ -366,29 +416,51 @@ public class UserModel extends BaseModel {
 
     }
 
+    //设置内容提供者
+    private void setProvider() {
+        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+            @Override
+            public UserInfo getUserInfo(String userId) {
+
+                return findUserById(userId);//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+            }
+
+        }, true);
+    }
+
+    private UserInfo findUserById(String userId) {
+        if (userId.equals(MyApp.INSTANCE().getCurrentuser().getObjectId())){
+            return new UserInfo(userId, MyApp.INSTANCE().getCurrentuser().getUsername(),Uri.parse(MyApp.INSTANCE().getCurrentuser().getAvatar().getUrl()) );
+        }
+        for (Friend friend : MyApp.INSTANCE().getFriendList()){
+            if (friend.getFriendUser().getObjectId().equals(userId)){
+                return new UserInfo(userId, friend.getFriendUser().getUsername(),Uri.parse(friend.getFriendUser().getAvatar().getUrl()) );
+            }
+        }
+        return null;
+    }
+
     /**
      * 为ListView填充数据
      * @return
      */
-    public void filledData(List<SortBean> mSortList, List<User> userList){
+    public void filledData(List<SortBean> mSortList, List<Friend> friendList){
         CharacterParser characterParser = CharacterParser.getInstance();
-        for(int i=0; i<userList.size(); i++){
+        for(int i=0; i<friendList.size(); i++){
             SortBean sortBean = new SortBean();
-            sortBean.setUser(userList.get(i));
+            sortBean.setUser(friendList.get(i).getFriendUser());
             //sortBean.setCount(0);
             //汉字转换成拼音
-            String pinyin = characterParser.getSelling(userList.get(i).getUsername());
+            String pinyin = characterParser.getSelling(friendList.get(i).getFriendUser().getUsername());
             String sortString = pinyin.substring(0, 1).toUpperCase();
-
             // 正则表达式，判断首字母是否是英文字母
             if(sortString.matches("[A-Z]")){
                 sortBean.setFirstLetter(sortString.toUpperCase());
             }else{
                 sortBean.setFirstLetter("#");
             }
-
             mSortList.add(sortBean);
-            Log.e("error", sortBean.getFirstLetter());
         }
 
     }
@@ -396,14 +468,27 @@ public class UserModel extends BaseModel {
     /**
      * 删除好友
      */
-//    public void deleteFriend(Friend f,DeleteListener listener){
-//        Friend friend =new Friend();
-//        friend.delete(getContext(),f.getObjectId(),listener);
-//    }
+    public void deleteFriend(final Friend f){
+        f.delete(f.getObjectId(), new UpdateListener() {
+            @Override
+            public void done(BmobException e) {
+                if (e == null){
+                    Toast.makeText(context,"删除好友成功",Toast.LENGTH_SHORT).show();
+                    MyApp.INSTANCE().getFriendList().remove(f);
+                    DetailsActivity activity = (DetailsActivity)context;
+                    activity.finish();
+                    context.startActivity(new Intent(context,MainActivity.class));
+                }else {
+                    Toast.makeText(context,"删除好友失败",Toast.LENGTH_SHORT).show();
+                    Log.i("error",e.getErrorCode()+e.getMessage());
+                }
+            }
+        });
+    }
 
     //发送好友请求
     public void sendFriendRequest(BmobIMUserInfo info){
-        BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info, true,null);
+        BmobIMConversation c = BmobIM.getInstance().startPrivateConversation(info,true,null);
         //这个obtain方法才是真正创建一个管理消息发送的会话
         BmobIMConversation conversation = BmobIMConversation.obtain(BmobIMClient.getInstance(), c);
         //新建一个添加好友的自定义消息实体
@@ -411,7 +496,7 @@ public class UserModel extends BaseModel {
         msg.setContent("很高兴认识你，可以加个好友吗?");//给对方的一个留言信息
         Map<String,Object> map =new HashMap<>();
         map.put("username", MyApp.INSTANCE().getCurrentuser().getUsername());//发送者姓名，这里只是举个例子，其实可以不需要传发送者的信息过去
-//        map.put("avatar",currentUser.getAvatar());//发送者的头像
+        map.put("avatar",MyApp.INSTANCE().getUserAvatarUrl());//发送者的头像
         map.put("userId",MyApp.INSTANCE().getCurrentuser().getObjectId());//发送者的uid
         msg.setExtraMap(map);
         conversation.sendMessage(msg, new MessageSendListener() {
@@ -493,11 +578,19 @@ public class UserModel extends BaseModel {
                 if (e == null) {
                     User user = new User();
                     user.setAvatar(avatar);
+                    user.setSessionToken(MyApp.INSTANCE().getCurrentuser().getSessionToken());
                     //保存数据
                     user.update(MyApp.INSTANCE().getCurrentuser().getObjectId(), new UpdateListener() {
                         @Override
                         public void done(BmobException e) {
+                            Log.i("ObjectId",MyApp.INSTANCE().getCurrentuser().getObjectId());
                             if (e == null) {
+                                MyApp.INSTANCE().getCurrentuser().setAvatar(avatar);
+                                MyApp.INSTANCE().setUserAvatarUrl(avatar.getUrl());
+                                SharedPreferences preferences=context.getSharedPreferences("user",Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor=preferences.edit();
+                                editor.putString("avatarUrl",avatar.getUrl());
+                                editor.commit();
                                 Toast.makeText(context, "头像更新成功", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(context, "头像更新失败", Toast.LENGTH_SHORT).show();
@@ -510,7 +603,38 @@ public class UserModel extends BaseModel {
                 }
             }
         });
-
-
     }
+
+    public void toDetails(final String result){
+        BmobQuery<User> query = new BmobQuery<>();
+        query.getObject(result, new QueryListener<User>() {
+            @Override
+            public void done(User user, BmobException e) {
+                if (e == null){
+                    if (user.getObjectId().equals("")){
+                        Toast.makeText(context,"该用户不存在",Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    boolean isFriend = false;
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    for (Friend friend:MyApp.INSTANCE().getFriendList()){
+                        if (friend.getFriendUser().getObjectId().equals(result)){
+                            isFriend = true;
+                        };
+                    }
+                    if (MyApp.INSTANCE().getCurrentuser().getObjectId().equals(user.getObjectId())){
+                        isFriend = true;
+                    }
+                    intent.putExtra("isFriend",isFriend);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("frienduser",user);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }else {
+                    Log.i("error",e.getErrorCode()+e.getMessage());
+                }
+            }
+        });
+    }
+
 }

@@ -32,6 +32,9 @@
 
     <!-- 保持CPU 运转，屏幕和键盘灯有可能是关闭的,用于文件上传和下载 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 其他权限 短信 -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
 
     <application
         android:name="myapp.MyApp"
@@ -43,15 +46,6 @@
         tools:replace="android:icon,android:label,android:theme">
         <activity
             android:name=".LoginActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".MainActivity" />
-        <activity
-            android:name=".SearchActivity"
-            android:label="" />
-        <activity
-            android:name=".WelcomeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,6 +53,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".SearchActivity"
+            android:label="" />
         <activity
             android:name=".ConversationActivity"
             android:screenOrientation="portrait"
@@ -82,16 +81,16 @@
         <activity android:name="com.yongchun.library.view.ImageSelectorActivity" />
         <activity android:name="com.yongchun.library.view.ImagePreviewActivity" />
         <activity android:name="com.yongchun.library.view.ImageCropActivity" />
-        <activity android:name=".FriendCircleActivity" />
-        <!--扫一扫功能界面-->
+        <activity
+            android:name=".FriendCircleActivity"
+            android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
+        <!-- 扫一扫功能界面 -->
         <activity
             android:name="com.xys.libzxing.zxing.activity.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden">
-        </activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -127,8 +126,27 @@
             android:name="Bmob_APP_KEY"
             android:value="7714967b6d8406fb9fe456b2fffff1e3" />
 
-        <activity android:name=".SetInfoActivity" />
-        <activity android:name=".DetailsActivity"></activity>
+        <activity android:name=".DetailsActivity" />
+        <!-- 聚合会话列表 -->
+        <activity
+            android:name=".SubConversationListActivtiy"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="com.example.administrator.pigeon"
+                    android:pathPrefix="/subconversationlist"
+                    android:scheme="rong" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".QRActivity" />
+        <activity android:name=".ShakeActivity" />
+        <activity android:name=".ChangeNameActivity" />
+        <activity android:name=".ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

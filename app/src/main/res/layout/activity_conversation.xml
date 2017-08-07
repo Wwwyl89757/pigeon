@@ -7,6 +7,35 @@
     android:orientation="vertical"
     tools:context="com.example.administrator.pigeon.ConversationActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@color/black">
+        <Button
+            android:id="@+id/back_btn"
+            android:background="@drawable/ac_back_icon"
+            android:layout_width="48dp"
+            android:layout_height="match_parent" />
+
+        <View
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:background="@color/bg_blue"/>
+
+        <TextView
+            android:textColor="#fff"
+            android:layout_marginLeft="15dp"
+            android:textSize="22sp"
+            android:id="@+id/showname_text"
+            android:gravity="center|left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
     <fragment
         android:id="@+id/conversation"
         android:name="io.rong.imkit.fragment.ConversationFragment"

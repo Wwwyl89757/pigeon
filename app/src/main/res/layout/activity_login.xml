@@ -5,9 +5,22 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg1"
     android:orientation="vertical"
     tools:context=".LoginActivity">
+
+    <FrameLayout
+        android:layout_width="713dp"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_login_bg"
+            android:layout_width="985dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="-600dp"
+            android:layout_marginTop="-50dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_login03" />
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/login_layout"
@@ -55,7 +68,7 @@
                     android:layout_weight="10"
                     android:textSize="16sp"
                     android:background="@null"
-                    android:hint="请输入账户"/>
+                    android:hint="请输入手机号"/>
             </TableRow>
 
             <View
@@ -128,6 +141,7 @@
                 android:gravity="right"
                 android:layout_height="wrap_content"
                 android:text="新用户注册"
+                android:background="@drawable/pressed2"
                 android:textColor="@color/font_tags"
                 android:textSize="16sp"/>
         </LinearLayout>
@@ -143,24 +157,5 @@
                 android:layout_weight="1"/>
         </LinearLayout>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_marginLeft="170px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="登录即代表阅读并同意"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/font_tags"
-            android:text="服务条款"/>
     </LinearLayout>
 </FrameLayout>
