@@ -4,30 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.webkit.WebView;
 
-import com.example.administrator.pigeon.DetailsActivity;
-import com.example.administrator.pigeon.EditCircleActivity;
 import com.example.administrator.pigeon.FriendCircleActivity;
+import com.example.administrator.pigeon.Game2048Activity;
 import com.example.administrator.pigeon.R;
 import com.example.administrator.pigeon.ShakeActivity;
+import com.example.administrator.pigeon.WeatherActivity;
 import com.xys.libzxing.zxing.activity.CaptureActivity;
-
-import bean.User;
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.QueryListener;
-import model.UserModel;
-import myapp.MyApp;
-
-import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Administrator on 2017/7/21.
@@ -47,6 +34,9 @@ public class ZoneFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.layout_tocircle).setOnClickListener(this);
         view.findViewById(R.id.layout_scan).setOnClickListener(this);
         view.findViewById(R.id.layout_shake).setOnClickListener(this);
+        view.findViewById(R.id.layout_weather).setOnClickListener(this);
+        view.findViewById(R.id.layout_shopping).setOnClickListener(this);
+        view.findViewById(R.id.layout_game).setOnClickListener(this);
     }
 
 
@@ -57,19 +47,22 @@ public class ZoneFragment extends Fragment implements View.OnClickListener {
                 startActivity(new Intent(getActivity(), FriendCircleActivity.class));
                 break;
             case R.id.layout_scan:
-                startActivityForResult(new Intent(getActivity(),CaptureActivity.class),0);
+                startActivityForResult(new Intent(getActivity(),CaptureActivity.class),1);
                 break;
             case R.id.layout_shake:
                 startActivity(new Intent(getActivity(),ShakeActivity.class));
                 break;
+            case R.id.layout_weather:
+                startActivity(new Intent(getActivity(), WeatherActivity.class));
+                break;
+            case R.id.layout_shopping:
+                WebView myWebView = (WebView) getActivity().findViewById(R.id.webview_shop);
+                myWebView.loadUrl("http://www.taobao.com");
+                break;
+            case R.id.layout_game:
+                startActivity(new Intent(getActivity(), Game2048Activity.class));
+                break;
         }
     }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            final String result = data.getExtras().getString("result");
-           UserModel.getInstance(getActivity()).toDetails(result);
-        }
-    }
+
 }

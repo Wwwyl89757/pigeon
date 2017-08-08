@@ -348,12 +348,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_ext_plugin_pager.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_emoji_grid_view.xml",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_ext_emoji_grid_view.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_root_menu_item.xml",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_ext_root_menu_item.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_emoji_grid_view.xml",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_ext_emoji_grid_view.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_wi_block.xml",

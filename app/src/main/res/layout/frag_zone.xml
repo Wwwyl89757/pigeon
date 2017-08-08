@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/bg_gray">
+
+    <WebView
+        android:id="@+id/webview_shop"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -151,8 +155,8 @@
                 android:background="@color/bg_gray"/>
 
             <LinearLayout
-                android:id="@+id/drift_bottle"
-                android:background="@color/white"
+                android:id="@+id/layout_weather"
+                android:background="@drawable/pressed"
                 android:layout_weight="7"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -175,7 +179,7 @@
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:paddingLeft="10dp"
-                    android:text="漂流瓶" />
+                    android:text="天气预报" />
 
             </LinearLayout>
 
@@ -187,8 +191,8 @@
                 android:background="@color/bg_gray" />
 
             <LinearLayout
-                android:id="@+id/shopping"
-                android:background="@color/white"
+                android:id="@+id/layout_shopping"
+                android:background="@drawable/pressed"
                 android:layout_weight="7"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -220,8 +224,8 @@
                 android:background="@color/bg_gray"/>
 
             <LinearLayout
-                android:id="@+id/game"
-                android:background="@color/white"
+                android:id="@+id/layout_game"
+                android:background="@drawable/pressed"
                 android:layout_weight="7"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -285,4 +289,4 @@
         </LinearLayout>
     </ScrollView>
 
-</LinearLayout>
+</FrameLayout>

@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
                 startActivity(new Intent(this,SearchActivity.class));
                 break;
             case R.id.action_add:
-                startActivityForResult(new Intent(this,CaptureActivity.class),0);
+                startActivityForResult(new Intent(this,CaptureActivity.class),1);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -216,18 +216,21 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         //得到fragment
         Fragment fragment = fragments.get(fragments.size()-1);
         /**
         * 判断是不是Activity里面Fragment的回调，如果是传递给Fragment
         */
-        if (fragment instanceof OnFragmentResultListener) {
+        Log.i("onActivityResult","requestCode="+requestCode+"resultCode="+resultCode+"");
+        if (requestCode == 66) {
             OnFragmentResultListener listener = (OnFragmentResultListener) fragment;
             listener.OnFragmentResult(requestCode, resultCode, data);
-        }else if(resultCode == RESULT_OK) {
+        }else {
             final String result = data.getExtras().getString("result");
+            Log.i("result",result);
             UserModel.getInstance(this).toDetails(result);
         }
-        super.onActivityResult(requestCode, resultCode, data);
+
     }
 }

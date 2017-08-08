@@ -115,7 +115,9 @@ public class  UserModel extends BaseModel {
                     }else{
                         Log.i("bmob","失败："+e.getMessage()+","+e.getErrorCode());
                         Toast.makeText(context,"登录失败",Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        if (progressDialog != null){
+                            progressDialog.dismiss();
+                        }
                     }
                 }
             });
@@ -147,13 +149,15 @@ public class  UserModel extends BaseModel {
                     connect(token,user);
                 } else {
                     Log.i(" error:" , e.getMessage());
-                    progressDialog.dismiss();
+                    if (progressDialog != null){
+                        progressDialog.dismiss();
+                    }
                 }
             }
         });
     }
 
-    private void connect(String token, final User user) {
+    public void connect(String token, final User user) {
 
         BmobIM.connect(user.getObjectId(), new ConnectListener() {
             @Override
@@ -162,7 +166,10 @@ public class  UserModel extends BaseModel {
                     Log.i("BmobConnect","BmobIMconnect success");
                 } else {
                     Log.i("BmobConnect",e.getErrorCode() + "/" + e.getMessage());
-                    progressDialog.dismiss();
+                    if (progressDialog != null){
+                        progressDialog.dismiss();
+                    }
+
                 }
             }
         });
@@ -202,8 +209,13 @@ public class  UserModel extends BaseModel {
                     }
                     Intent intent = new Intent(getContext(),MainActivity.class);
                     context.startActivity(intent);
-                    ((Activity)context).finish();
-                    progressDialog.dismiss();
+                    if (context instanceof Activity){
+                        ((Activity)context).finish();
+                    }
+                    if (progressDialog != null ){
+                        progressDialog.dismiss();
+                    }
+
                 }
 
                 /**
@@ -214,7 +226,9 @@ public class  UserModel extends BaseModel {
                 public void onError(RongIMClient.ErrorCode errorCode) {
                     Toast.makeText(context,errorCode+"",Toast.LENGTH_SHORT).show();
                     Log.i("errorCode",errorCode+"");
-                    progressDialog.dismiss();
+                    if (progressDialog != null){
+                        progressDialog.dismiss();
+                    }
                 }
             });
         }
@@ -446,6 +460,7 @@ public class  UserModel extends BaseModel {
      * @return
      */
     public void filledData(List<SortBean> mSortList, List<Friend> friendList){
+        mSortList.clear();
         CharacterParser characterParser = CharacterParser.getInstance();
         for(int i=0; i<friendList.size(); i++){
             SortBean sortBean = new SortBean();

@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             currentUser.setSessionToken(preferences.getString("sessionToken",""));
             MyApp.INSTANCE().setCurrentuser(currentUser);
             MyApp.INSTANCE().setUserAvatarUrl(preferences.getString("avatarUrl",""));
+            UserModel.getInstance(this).connect(preferences.getString("token",""),currentUser);
             startActivity(new Intent(LoginActivity.this,MainActivity.class));
         }
     }
@@ -83,6 +84,11 @@ public class LoginActivity extends AppCompatActivity {
         String password = editText_pass.getText().toString().trim();
         UserModel userModel = UserModel.getInstance(this);
         userModel.login(phoneNumber,password);
+    }
+
+    @OnClick(R.id.text_fogetpsw)
+    public void toForgetPsw(View view){
+        startActivity(new Intent(LoginActivity.this,ForgetPswActivity.class));
     }
 
     @OnClick(R.id.text_toregister)
