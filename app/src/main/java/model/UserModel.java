@@ -278,6 +278,7 @@ public class  UserModel extends BaseModel {
                     Log.i("验证码错误",e.toString()+e.getLocalizedMessage());
                     progressDialog.dismiss();
                 }
+
             }
         });
     }
