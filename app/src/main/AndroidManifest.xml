@@ -83,6 +83,7 @@
         <activity android:name="com.yongchun.library.view.ImageCropActivity" />
         <activity
             android:name=".FriendCircleActivity"
+            android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize|adjustUnspecified|stateHidden" />
         <!-- 扫一扫功能界面 -->
         <activity
@@ -149,7 +150,25 @@
         <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".ForgetPswActivity" />
         <activity android:name=".WeatherActivity" />
-        <activity android:name=".Game2048Activity"></activity>
+        <activity android:name=".Game2048Activity" />
+        <activity android:name=".PedometerActivity"></activity>
+
+        <!-- 计步功能 -->
+        <service
+            android:name="service.StepService"
+            android:priority="1000"
+            android:process="com.spring.stepcount.service">
+            <intent-filter>
+                <!-- 系统启动完成后会调用-->
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_TIME_TICK" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

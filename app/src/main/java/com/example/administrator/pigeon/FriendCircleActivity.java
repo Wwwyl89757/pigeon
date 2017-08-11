@@ -42,7 +42,6 @@ public class FriendCircleActivity extends AppCompatActivity{
 
     private View header;
     private FriendCircleAdapter mAdapter;
-    private List<FriendsCircle> mList = new ArrayList<>();
     private ImageView microIcon;
     private TextView text_name;
 
@@ -61,10 +60,10 @@ public class FriendCircleActivity extends AppCompatActivity{
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("朋友圈");
         actionBar.setDisplayHomeAsUpEnabled(true);
-
+        mDynamicList = MyApp.INSTANCE().getmDynamicList();
         friendCircleModel = new FriendCircleModel();
-        mAdapter = new FriendCircleAdapter(this, R.layout.item_friendcircle_listother, mList);
-        friendCircleModel.getDynamicItem(this,mList,mAdapter);
+        mAdapter = new FriendCircleAdapter(this, R.layout.item_friendcircle_listother, mDynamicList);
+        friendCircleModel.getDynamicItem(this);
         header= LayoutInflater.from(this).inflate(R.layout.micro_list_header, null);
         microIcon=(ImageView) header.findViewById(R.id.MicroIcon);
         ImageLoader.getInstance().displayImage(MyApp.INSTANCE().getUserAvatarUrl(),microIcon, Config.options);
@@ -94,25 +93,30 @@ public class FriendCircleActivity extends AppCompatActivity{
                 getData(s);
             }
         });
+
     }
 
 
     private void getData(String s) {
         // TODO Auto-generated method stub
         if("下拉刷新".equals(s)){
-            LoadList(mList);
+            if (MyApp.INSTANCE().getUpdate()){
+                friendCircleModel.getDynamicItem(this);
+            }
             customListView.onRefreshComplete();
         }else{
-            LoadList(mList);
+            if (MyApp.INSTANCE().getUpdate()){
+                friendCircleModel.getDynamicItem(this);
+            }
             customListView.onLoadMoreComplete(); // 加载更多完成
         }
     }
 
-    public void LoadList(List<FriendsCircle> mList){
-        friendCircleModel.getDynamicItem(this,mList,mAdapter);
+    public void onRefresh(List<FriendsCircle> list) {
+        mDynamicList = list;
+        mAdapter.setDatas(mDynamicList);
+        mAdapter.notifyDataSetChanged();
     }
-
-
 
 
     @Override

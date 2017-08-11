@@ -227,9 +227,12 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
             OnFragmentResultListener listener = (OnFragmentResultListener) fragment;
             listener.OnFragmentResult(requestCode, resultCode, data);
         }else {
-            final String result = data.getExtras().getString("result");
-            Log.i("result",result);
-            UserModel.getInstance(this).toDetails(result);
+            if (data != null){
+                final String result = data.getExtras().getString("result");
+                Log.i("result",result);
+                UserModel.getInstance(this).toDetails(result);
+            }
+
         }
 
     }

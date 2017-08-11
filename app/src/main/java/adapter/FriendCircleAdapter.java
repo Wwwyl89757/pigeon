@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,7 +55,7 @@ public class FriendCircleAdapter extends BaseAdapter {
     private int mLayoutRes;
     private Context mContext;
     private ImageLoader imageLoader = ImageLoader.getInstance();
-    FriendCircleModel model = new FriendCircleModel();
+    private FriendCircleModel model = new FriendCircleModel();
 
     public FriendCircleAdapter(Context context, int layoutRes, List<FriendsCircle> datas) {
         this.mContext=context;
@@ -95,6 +96,7 @@ public class FriendCircleAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final  ViewHolder holder;
+        Log.i("bmobFile","friendCirclePosition = " + position);
         if (convertView == null) {
             convertView = mInflater.inflate(mLayoutRes, null);
             holder = new ViewHolder();
@@ -116,6 +118,7 @@ public class FriendCircleAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+//        Log.i("bmobFile","name"+ mDatas.get(position).getWriter().getUsername());
         BmobQuery<User> query = new BmobQuery();
         query.getObject(mDatas.get(position).getWriter().getObjectId(), new QueryListener<User>() {
             @Override
@@ -131,11 +134,11 @@ public class FriendCircleAdapter extends BaseAdapter {
 
         holder.write_date.setText(mDatas.get(position).getCreatedAt());
         holder.dynamic_text.setText(mDatas.get(position).getText());
-        Log.i("getPhotoList",mDatas.get(position).getPhotoList().size()+"");
-        if (mDatas.get(position).getPhotoList().size() == 0){
+//        Log.i("getPhotoList",mDatas.get(position).getPhotoList().size()+"");
+        if (mDatas.get(position).getPhotoList() == null || mDatas.get(position).getPhotoList().size() == 0){
             holder.dynamic_photo.setVisibility(View.GONE);
-            Log.i("getPhotoList","=======");
         }else {
+            holder.dynamic_photo.setVisibility(View.VISIBLE);
             holder.dynamic_photo.setAdapter(new PhotoAdapter(mContext,R.layout.item_friendcircle_grid,mDatas.get(position).getPhotoList()));
         }
         holder.btnComment.setTag(getItem(position).getObjectId());
@@ -320,6 +323,8 @@ public class FriendCircleAdapter extends BaseAdapter {
                 break;
         }
     }
+
+
 
     private final class ViewHolder {
         ImageView write_photo;

@@ -106,14 +106,13 @@ public class FriendCircleModel {
      * 获取所有的朋友圈消息
      *
      */
-    public void getDynamicItem(final FriendCircleActivity view , final List<FriendsCircle> mlist, final FriendCircleAdapter mAdapter) {
+    public void getDynamicItem(final FriendCircleActivity view) {
         final BmobQuery<FriendsCircle> query = new BmobQuery<FriendsCircle>();
         query.order("-createdAt");
         query.findObjects(new FindListener<FriendsCircle>() {
             @Override
             public void done(List<FriendsCircle> list, BmobException e) {
                 if (e == null){
-                    mlist.clear();
                     for (FriendsCircle friendsCircle : list){
 //                        queryLikes(friendsCircle,mAdapter,mlist);
                         for (User user : friendsCircle.getWhoLikes()){
@@ -122,9 +121,9 @@ public class FriendCircleModel {
                                 friendsCircle.setPraiseflag("Y");
                             }
                         }
-                        mlist.add(friendsCircle);
                     }
-                    mAdapter.notifyDataSetChanged();
+                    view.onRefresh(list);
+                    MyApp.INSTANCE().setUpdate(false);
                 }else {
                     Log.i("error",e.getErrorCode()+e.getMessage());
                 }

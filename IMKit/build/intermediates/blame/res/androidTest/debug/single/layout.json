@@ -164,12 +164,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\layout\\rc_mention_members.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\rc_cs_alert_human_evaluation.xml",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\layout\\rc_cs_alert_human_evaluation.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\rc_item_preview_fragment.xml",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\layout\\rc_item_preview_fragment.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\rc_cs_alert_human_evaluation.xml",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\bundles\\debug\\res\\layout\\rc_cs_alert_human_evaluation.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\rc_plugin_location_activity.xml",

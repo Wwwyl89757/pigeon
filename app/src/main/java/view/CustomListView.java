@@ -387,7 +387,6 @@ public class CustomListView extends ListView implements OnScrollListener {
 	@Override
 	public void onScroll(AbsListView pView, int pFirstVisibleItem,
 			int pVisibleItemCount, int pTotalItemCount) {
-		System.out.println("底部啊啊啊啊");
 //		if(index!=0){
 //		NoticeActivity.showFloat(pFirstVisibleItem);}
 		index++;

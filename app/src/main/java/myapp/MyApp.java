@@ -4,15 +4,20 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 
-import com.example.administrator.pigeon.R;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import bean.Friend;
+import bean.FriendsCircle;
 import bean.User;
 import cn.bmob.newim.BmobIM;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobRealTimeData;
+import cn.bmob.v3.listener.ValueEventListener;
 import io.rong.imkit.RongIM;
 import util.MyMessageHandler;
 
@@ -40,7 +45,8 @@ public class MyApp extends Application {
     private User currentuser;
     private String userAvatarUrl;
     private ArrayList<Friend> friendList = new ArrayList<>();
-
+    private List<FriendsCircle> mDynamicList = new ArrayList<>();
+    private boolean isUpdate;
 
     @Override
     public void onCreate() {
@@ -54,6 +60,27 @@ public class MyApp extends Application {
             BmobIM.init(this);
             //注册消息接收器
             BmobIM.registerDefaultMessageHandler(new MyMessageHandler(this));
+            //监听动态表更新
+            final BmobRealTimeData rtd = new BmobRealTimeData();
+            Log.i("BmobRealTime",rtd.isConnected()+"");
+            rtd.start(new ValueEventListener() {
+                @Override
+                public void onDataChange(JSONObject data) {
+                        isUpdate = true;
+                    Log.i("BmobRealTime","isUpdate= " + isUpdate);
+                }
+                @Override
+                public void onConnectCompleted(Exception ex) {
+                    Log.i("BmobRealTime",rtd.isConnected()+"");
+                    if (rtd.isConnected()){
+                        // 监听表更新
+                        rtd.subTableUpdate("FriendsCircle");
+                        // 监听表删除
+                        rtd.subTableDelete("FriendsCircle");
+                    }
+                }
+            });
+
         }
 
     }
@@ -89,6 +116,23 @@ public class MyApp extends Application {
     public String getUserAvatarUrl() {
         return userAvatarUrl;
     }
+
+    public void setmDynamicList(List<FriendsCircle> mDynamicList) {
+        this.mDynamicList = mDynamicList;
+    }
+
+    public List<FriendsCircle> getmDynamicList() {
+        return mDynamicList;
+    }
+
+    public void setUpdate(boolean update) {
+        isUpdate = update;
+    }
+
+    public boolean getUpdate() {
+        return isUpdate;
+    }
+
 
     /**
      * 获得当前进程的名字

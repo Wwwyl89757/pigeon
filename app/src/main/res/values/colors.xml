@@ -25,4 +25,8 @@
     <color name="background">#DEDEDE</color>
     <color name="touming">#00000000</color>
     <color name="bantouming">#7fffffff</color>
+    <color name="light_grey">#D3D3D3</color>
+    <color name="gray_default_dark">#666666</color>
+    <color name="light_blue">#44CDC5</color>
+    <color name="main_text_color">#333333</color>
 </resources>

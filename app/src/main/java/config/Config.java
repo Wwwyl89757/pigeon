@@ -14,6 +14,9 @@ import io.rong.imageloader.core.display.RoundedBitmapDisplayer;
 
 public class Config {
 
+    public static final int MSG_FROM_CLIENT = 0;
+    public static final int MSG_FROM_SERVER = 1;
+
     //是否是debug模式
     public static final boolean DEBUG=true;
     //好友请求：未读-未添加->接收到别人发给我的好友添加请求，初始状态

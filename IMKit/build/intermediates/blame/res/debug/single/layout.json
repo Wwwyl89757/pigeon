@@ -168,12 +168,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_fragment_base_setting.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_conversation_member.xml",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_item_conversation_member.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_fr_public_service_sub_list.xml",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_fr_public_service_sub_list.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_item_conversation_member.xml",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_item_conversation_member.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_location_real_time_activity.xml",
@@ -348,12 +348,12 @@
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_ext_plugin_pager.xml"
     },
     {
-        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_root_menu_item.xml",
-        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_ext_root_menu_item.xml"
-    },
-    {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_emoji_grid_view.xml",
         "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_ext_emoji_grid_view.xml"
+    },
+    {
+        "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_ext_root_menu_item.xml",
+        "source": "E:\\androidMyCode\\pigeon\\IMKit\\src\\main\\res\\layout\\rc_ext_root_menu_item.xml"
     },
     {
         "merged": "E:\\androidMyCode\\pigeon\\IMKit\\build\\intermediates\\res\\merged\\debug\\layout\\rc_wi_block.xml",

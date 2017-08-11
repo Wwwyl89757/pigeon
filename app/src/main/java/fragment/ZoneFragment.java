@@ -11,6 +11,7 @@ import android.webkit.WebView;
 
 import com.example.administrator.pigeon.FriendCircleActivity;
 import com.example.administrator.pigeon.Game2048Activity;
+import com.example.administrator.pigeon.PedometerActivity;
 import com.example.administrator.pigeon.R;
 import com.example.administrator.pigeon.ShakeActivity;
 import com.example.administrator.pigeon.WeatherActivity;
@@ -37,6 +38,7 @@ public class ZoneFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.layout_weather).setOnClickListener(this);
         view.findViewById(R.id.layout_shopping).setOnClickListener(this);
         view.findViewById(R.id.layout_game).setOnClickListener(this);
+        view.findViewById(R.id.layout_run).setOnClickListener(this);
     }
 
 
@@ -61,6 +63,9 @@ public class ZoneFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.layout_game:
                 startActivity(new Intent(getActivity(), Game2048Activity.class));
+                break;
+            case R.id.layout_run:
+                startActivity(new Intent(getActivity(), PedometerActivity.class));
                 break;
         }
     }

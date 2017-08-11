@@ -11,7 +11,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/bg_gray">
 
         <LinearLayout
             android:orientation="vertical"
@@ -124,8 +125,8 @@
                 android:background="@color/bg_gray"/>
 
             <LinearLayout
-                android:id="@+id/nearby"
-                android:background="@color/white"
+                android:id="@+id/layout_run"
+                android:background="@drawable/pressed"
                 android:layout_weight="7"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -136,7 +137,7 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
-                    android:src="@drawable/v4"
+                    android:src="@drawable/v14"
                     android:layout_width="27dp"
                     android:layout_height="27dp" />
 
@@ -146,7 +147,7 @@
                     android:layout_weight="3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="附近的人"/>
+                    android:text="运动"/>
             </LinearLayout>
 
             <View
